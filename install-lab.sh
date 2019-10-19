@@ -8,7 +8,7 @@ curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/miniku
 sudo apt-get update && sudo apt-get install docker.io -y
 sudo gpasswd -a ubuntu docker
 newgrp docker << EOF
-minikube start \
+sudo minikube start \
   --kubernetes-version=v1.12.0 \
   --vm-driver=none \
   --extra-config=apiserver.enable-admission-plugins="LimitRanger,NamespaceExists,NamespaceLifecycle,ResourceQuota,ServiceAccount,DefaultStorageClass,MutatingAdmissionWebhook"
