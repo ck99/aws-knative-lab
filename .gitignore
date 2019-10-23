@@ -1,4 +1,9 @@
+.idea
 .terraform
 .terraform.tfstate.lock.info
 terraform.tfstate
 terraform.tfstate.backup
+k8s/cluster-autoscaler-values.yaml
+kubeconfig_knative-lab-*
+config-map-aws-auth_knative-lab-*.yaml
+pre_flight_checks/istio-*
