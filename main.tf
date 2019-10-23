@@ -99,13 +99,16 @@ module "eks" {
   subnets      = module.vpc.private_subnets
   vpc_id       = module.vpc.vpc_id
 
-  cluster_enabled_log_types = ["api", "audit", "authenticator", "controllerManager", "scheduler"]
+  cluster_enabled_log_types     = ["api", "audit", "authenticator", "controllerManager", "scheduler"]
+  cluster_log_retention_in_days = 3
 
   tags = {
     Environment = "lab"
     GithubRepo  = "aws-knative-lab"
     GithubOrg   = "ck99"
   }
+
+  attach_worker_autoscaling_policy  = true
 
   worker_groups = [
     {
