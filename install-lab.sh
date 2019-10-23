@@ -1,25 +1,9 @@
 #!/usr/bin/env bash
 
-install_docker() {
-    sudo apt-get update
-    sudo apt-get install -y apt-transport-https ca-certificates curl gnupg-agent software-properties-common
-    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-    sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-    sudo apt-get update
-    sudo apt-get -y install docker-ce docker-ce-cli containerd.io socat
-    sudo gpasswd -a ubuntu docker
-}
-
 install_kubectl() {
     curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
     chmod +x kubectl
     sudo mv kubectl /usr/local/bin
-}
-
-install_minikube() {
-    curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
-    chmod +x minikube
-    sudo mv minikube /usr/local/bin/
 }
 
 install_helm() {
@@ -42,25 +26,7 @@ install_go() {
     sudo mv go /usr/local
 }
 
-start_minikube() {
-    sudo minikube start \
-      --kubernetes-version=v1.12.0 \
-      --vm-driver=none \
-      --extra-config=apiserver.enable-admission-plugins="LimitRanger,NamespaceExists,NamespaceLifecycle,ResourceQuota,ServiceAccount,DefaultStorageClass,MutatingAdmissionWebhook"
-    sudo chown -R ubuntu /home/ubuntu/.kube /home/ubuntu/.minikube
-    helm init
-}
-install_docker
-install_kubectl
-install_minikube
-install_helm
-install_istio
-install_go
-start_minikube
-
-
 deploy() {
-newgrp docker << EOF
 export ISTIO_VERSION=1.2.7
 cd /home/ubuntu/istio-${ISTIO_VERSION}
 for i in install/kubernetes/helm/istio-init/files/crd*yaml; do kubectl apply -f ${i}; done
@@ -128,16 +94,4 @@ kubectl apply --selector knative.dev/crd-install=true \
 kubectl apply --filename https://github.com/knative/serving/releases/download/v0.9.0/serving.yaml \
    --filename https://github.com/knative/eventing/releases/download/v0.9.0/release.yaml \
    --filename https://github.com/knative/serving/releases/download/v0.9.0/monitoring.yaml
-
-EOF
-
 }
-
-
-####
-####
-#   Deployment.apps "istio-pilot" is invalid: spec.template.spec.affinity.nodeAffinity.requiredDuringSchedulingIgnoredDuringExecution.nodeSelectorTerms[0].matchExpressions[0].values: Required value: must be specified when `operator` is 'In' or 'NotIn'
-####
-####
-
-
