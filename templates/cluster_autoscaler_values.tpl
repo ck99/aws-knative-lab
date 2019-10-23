@@ -10,3 +10,6 @@ autoDiscovery:
 
 nodeSelector:
   kubernetes.io/lifecycle: spot
+
+extraArgs:
+  skip-nodes-with-system-pods: false
