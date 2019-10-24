@@ -13,3 +13,7 @@ nodeSelector:
 
 extraArgs:
   skip-nodes-with-system-pods: false
+  skip-nodes-with-local-storage: false
+  scale-down-unneeded-time: 2m
+  scale-down-delay-after-add: 2m
+  scale-down-unready-time: 2m

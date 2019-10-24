@@ -92,6 +92,14 @@ resource "local_file" "cluster_autoscaler_values" {
   filename = "./k8s/cluster-autoscaler-values.yaml"
 }
 
+data "template_file" "post_deploy_instructions" {
+  template = file("${path.module}/templates/postdeploy.tpl")
+
+  vars = {
+    cluster_name = local.cluster_name
+  }
+}
+
 module "eks" {
   source       = "terraform-aws-modules/eks/aws"
   version      = "6.0.2"
@@ -114,8 +122,8 @@ module "eks" {
     {
       name                          = "on-demand-1a"
       instance_type                 = "t3.small"
-      asg_min_size                  = 1
-      asg_max_size                  = 2
+      asg_min_size                  = 0
+      asg_max_size                  = 1
       autoscaling_enabled           = true
       kubelet_extra_args            = "--register-with-taints=node-role.kubernetes.io/worker=true:PreferNoSchedule --node-labels=node-role.kubernetes.io/worker=true --node-labels=spot=false --node-labels=kubernetes.io/lifecycle=normal"
       suspended_processes           = ["AZRebalance"]
