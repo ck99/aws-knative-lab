@@ -122,10 +122,10 @@ module "eks" {
 
   worker_groups = [
     {
-      name                          = "on-demand-1a"
-      instance_type                 = "t3.small"
+      name                          = "on-demand"
+      instance_type                 = "t3a.medium"
       asg_min_size                  = 0
-      asg_max_size                  = 1
+      asg_max_size                  = 5
       autoscaling_enabled           = true
       kubelet_extra_args            = "--register-with-taints=node-role.kubernetes.io/worker=true:PreferNoSchedule --node-labels=node-role.kubernetes.io/worker=true --node-labels=spot=false --node-labels=kubernetes.io/lifecycle=normal"
       suspended_processes           = ["AZRebalance"]
@@ -137,42 +137,15 @@ module "eks" {
 
   worker_groups_launch_template = [
     {
-      name                          = "spot-1a"
-      override_instance_types       = ["t3.small"]
-      autoscaling_enabled           = true
-      protect_from_scale_in         = true
-      spot_instance_pools           = 4
-      asg_min_size                  = 0
-      asg_max_size                  = 3
-      public_ip                     = true
-      additional_security_group_ids = [aws_security_group.worker_group_mgmt.id]
-      bootstrap_extra_args          = "--enable-docker-bridge true"
-      kubelet_extra_args            = "--node-labels=node-role.kubernetes.io/spot-worker=true --node-labels=spot=true --node-labels=kubernetes.io/lifecycle=spot"
-      suspended_processes           = ["AZRebalance"]
-    },
-    {
-      name                          = "spot-2a"
-      override_instance_types       = ["t3.medium"]
-      autoscaling_enabled           = true
-      protect_from_scale_in         = true
-      spot_instance_pools           = 4
-      asg_min_size                  = 0
-      asg_max_size                  = 3
-      public_ip                     = true
-      additional_security_group_ids = [aws_security_group.worker_group_mgmt.id]
-      bootstrap_extra_args          = "--enable-docker-bridge true"
-      kubelet_extra_args            = "--node-labels=node-role.kubernetes.io/spot-worker=true --node-labels=spot=true --node-labels=kubernetes.io/lifecycle=spot"
-      suspended_processes           = ["AZRebalance"]
-    },
-    {
-      name                          = "spot-3a"
-      override_instance_types       = ["r5d.large", "r5dn.large", "r5dn.xlarge", "m5a.large", "r5n.2xlarge", "r5d.2xlarge"]
+      name                          = "spot-medium"
+      override_instance_types       = ["t3a.medium"]
       spot_price                    = "0.1"
       autoscaling_enabled           = true
       protect_from_scale_in         = true
       spot_instance_pools           = 4
       asg_min_size                  = 0
       asg_max_size                  = 3
+      asg_desired_capaticy          = 0
       public_ip                     = true
       additional_security_group_ids = [aws_security_group.worker_group_mgmt.id]
       bootstrap_extra_args          = "--enable-docker-bridge true"
