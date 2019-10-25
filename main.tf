@@ -28,8 +28,10 @@ data "aws_availability_zones" "available" {
 
 locals {
   cluster_name = "knative-lab-${random_string.suffix.result}"
+  istio_version = "1.2.7"
+  kubectl_cmd = "kubectl --kubeconfig='${path.cwd}/${module.eks.kubeconfig_filename}' "
+  helm_cmd = "helm --kubeconfig='${path.cwd}/${module.eks.kubeconfig_filename}' "
 }
-
 resource "random_string" "suffix" {
   length  = 8
   special = false
@@ -151,6 +153,21 @@ module "eks" {
     {
       name                          = "spot-2a"
       override_instance_types       = ["t3.medium"]
+      autoscaling_enabled           = true
+      protect_from_scale_in         = true
+      spot_instance_pools           = 4
+      asg_min_size                  = 0
+      asg_max_size                  = 3
+      public_ip                     = true
+      additional_security_group_ids = [aws_security_group.worker_group_mgmt.id]
+      bootstrap_extra_args          = "--enable-docker-bridge true"
+      kubelet_extra_args            = "--node-labels=node-role.kubernetes.io/spot-worker=true --node-labels=spot=true --node-labels=kubernetes.io/lifecycle=spot"
+      suspended_processes           = ["AZRebalance"]
+    },
+    {
+      name                          = "spot-3a"
+      override_instance_types       = ["r5d.large", "r5dn.large", "r5dn.xlarge", "m5a.large", "r5n.2xlarge", "r5d.2xlarge"]
+      spot_price                    = "0.1"
       autoscaling_enabled           = true
       protect_from_scale_in         = true
       spot_instance_pools           = 4

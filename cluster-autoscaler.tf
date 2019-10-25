@@ -1,5 +1,7 @@
 provider "kubernetes" {
+  host = module.eks.cluster_endpoint
   config_path = module.eks.kubeconfig_filename
+  load_config_file = module.eks.cluster_endpoint != "" ? true : false
 }
 
 provider "helm" {
@@ -7,7 +9,9 @@ provider "helm" {
   max_history = 200
   service_account = "tiller"
   kubernetes {
+    host = module.eks.cluster_endpoint
     config_path = module.eks.kubeconfig_filename
+    load_config_file = module.eks.cluster_endpoint != "" ? true : false
   }
 }
 
@@ -98,6 +102,11 @@ resource "helm_release" "cluster_autoscaler" {
   set {
     name  = "extraArgs.scale-down-unready-time"
     value = "2m"
+  }
+
+  set {
+    name  = "extraArgs.expander"
+    value = "most-pods"
   }
 
 }

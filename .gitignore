@@ -4,6 +4,7 @@
 terraform.tfstate
 terraform.tfstate.backup
 k8s/cluster-autoscaler-values.yaml
+k8s/istio*
 kubeconfig_knative-lab-*
 config-map-aws-auth_knative-lab-*.yaml
 pre_flight_checks/istio-*
