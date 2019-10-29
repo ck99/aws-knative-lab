@@ -1,0 +1,51 @@
+apiVersion: v1
+items:
+- apiVersion: v1
+  kind: ServiceAccount
+  metadata:
+    creationTimestamp: "2019-10-28T22:16:38Z"
+    name: default
+    namespace: gloo-system
+    resourceVersion: "3116"
+    selfLink: /api/v1/namespaces/gloo-system/serviceaccounts/default
+    uid: 9c6a062a-f9d0-11e9-9840-0a53dd3233ea
+  secrets:
+  - name: default-token-fxfc4
+- apiVersion: v1
+  kind: ServiceAccount
+  metadata:
+    annotations:
+      helm.sh/hook: pre-install
+      helm.sh/hook-weight: "5"
+    creationTimestamp: "2019-10-28T22:16:45Z"
+    labels:
+      app: gloo
+      gloo: discovery
+    name: discovery
+    namespace: gloo-system
+    resourceVersion: "3169"
+    selfLink: /api/v1/namespaces/gloo-system/serviceaccounts/discovery
+    uid: a0e160d7-f9d0-11e9-97af-06c72885f180
+  secrets:
+  - name: discovery-token-d8jmd
+- apiVersion: v1
+  kind: ServiceAccount
+  metadata:
+    annotations:
+      helm.sh/hook: pre-install
+      helm.sh/hook-weight: "5"
+    creationTimestamp: "2019-10-28T22:16:45Z"
+    labels:
+      app: gloo
+      gloo: gloo
+    name: gloo
+    namespace: gloo-system
+    resourceVersion: "3174"
+    selfLink: /api/v1/namespaces/gloo-system/serviceaccounts/gloo
+    uid: a0ec4c96-f9d0-11e9-97af-06c72885f180
+  secrets:
+  - name: gloo-token-wr49c
+kind: List
+metadata:
+  resourceVersion: ""
+  selfLink: ""

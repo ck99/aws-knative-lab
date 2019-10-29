@@ -1,0 +1,2832 @@
+apiVersion: v1
+items:
+- apiVersion: apiextensions.k8s.io/v1beta1
+  kind: CustomResourceDefinition
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apiextensions.k8s.io/v1beta1","kind":"CustomResourceDefinition","metadata":{"annotations":{},"creationTimestamp":null,"labels":{"eventing.knative.dev/release":"v0.9.0","eventing.knative.dev/source":"true","knative.dev/crd-install":"true"},"name":"apiserversources.sources.eventing.knative.dev"},"spec":{"group":"sources.eventing.knative.dev","names":{"categories":["all","knative","eventing","sources"],"kind":"ApiServerSource","plural":"apiserversources"},"scope":"Namespaced","subresources":{"status":{}},"validation":{"openAPIV3Schema":{"properties":{"registry":{"description":"Internal information, users should not set this property","properties":{"eventTypes":{"description":"Event types that ApiServerSource can produce","properties":{"addRef":{"properties":{"schema":{"type":"string"},"type":{"pattern":"dev.knative.apiserver.ref.add","type":"string"}},"type":"object"},"addResource":{"properties":{"schema":{"type":"string"},"type":{"pattern":"dev.knative.apiserver.resource.add","type":"string"}},"type":"object"},"deleteRef":{"properties":{"schema":{"type":"string"},"type":{"pattern":"dev.knative.apiserver.ref.delete","type":"string"}},"type":"object"},"deleteResource":{"properties":{"schema":{"type":"string"},"type":{"pattern":"dev.knative.apiserver.resource.delete","type":"string"}},"type":"object"},"updateRef":{"properties":{"schema":{"type":"string"},"type":{"pattern":"dev.knative.apiserver.ref.update","type":"string"}},"type":"object"},"updateResource":{"properties":{"schema":{"type":"string"},"type":{"pattern":"dev.knative.apiserver.resource.update","type":"string"}},"type":"object"}},"type":"object"}},"type":"object"},"spec":{"properties":{"mode":{"description":"Mode controls the content of the event payload. One of: 'Ref' (only references of resources), 'Resource' (full resource).","type":"string"},"resources":{"items":{"properties":{"apiVersion":{"description":"API version of the objects to watch.","type":"string"},"controller":{"description":"If true, emits the managing controller ref. Only supported for mode=Ref. More info: https://kubernetes.io/docs/concepts/workloads/controllers/garbage-collection/","type":"boolean"},"controllerSelector":{"description":"Controller selector restricting the list of objects to watch by a controlling owner reference of the specified kind.","properties":{"apiVersion":{"description":"API version of the controlling owner reference.","type":"string"},"kind":{"description":"Kind of the controlling owner reference.","type":"string"}},"type":"object"},"kind":{"description":"Kind of the objects to watch.","type":"string"},"labelSelector":{"description":"Label selector restricting this  list of objects to watch by their labels. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/","type":"object"}}},"type":"array"},"serviceAccountName":{"description":"name of the ServiceAccount to use to run the receive adapter. More info: https://kubernetes.io/docs/reference/access-authn-authz/service-accounts-admin/.","type":"string"},"sink":{"description":"A reference to the object that should receive events.","type":"object"}},"required":["resources","sink"],"type":"object"},"status":{"properties":{"conditions":{"items":{"properties":{"lastTransitionTime":{"type":"string"},"message":{"type":"string"},"reason":{"type":"string"},"severity":{"type":"string"},"status":{"type":"string"},"type":{"type":"string"}},"required":["type","status"],"type":"object"},"type":"array"},"sinkUri":{"type":"string"}},"type":"object"}}}},"versions":[{"name":"v1alpha1","served":true,"storage":true}]}}
+    creationTimestamp: "2019-10-28T23:42:31Z"
+    generation: 1
+    labels:
+      eventing.knative.dev/release: v0.9.0
+      eventing.knative.dev/source: "true"
+      knative.dev/crd-install: "true"
+    name: apiserversources.sources.eventing.knative.dev
+    resourceVersion: "7269"
+    selfLink: /apis/apiextensions.k8s.io/v1beta1/customresourcedefinitions/apiserversources.sources.eventing.knative.dev
+    uid: 9bc8cea8-f9dc-11e9-968e-0a094f6cd970
+  spec:
+    conversion:
+      strategy: None
+    group: sources.eventing.knative.dev
+    names:
+      categories:
+      - all
+      - knative
+      - eventing
+      - sources
+      kind: ApiServerSource
+      listKind: ApiServerSourceList
+      plural: apiserversources
+      singular: apiserversource
+    scope: Namespaced
+    subresources:
+      status: {}
+    validation:
+      openAPIV3Schema:
+        properties:
+          registry:
+            description: Internal information, users should not set this property
+            properties:
+              eventTypes:
+                description: Event types that ApiServerSource can produce
+                properties:
+                  addRef:
+                    properties:
+                      schema:
+                        type: string
+                      type:
+                        pattern: dev.knative.apiserver.ref.add
+                        type: string
+                    type: object
+                  addResource:
+                    properties:
+                      schema:
+                        type: string
+                      type:
+                        pattern: dev.knative.apiserver.resource.add
+                        type: string
+                    type: object
+                  deleteRef:
+                    properties:
+                      schema:
+                        type: string
+                      type:
+                        pattern: dev.knative.apiserver.ref.delete
+                        type: string
+                    type: object
+                  deleteResource:
+                    properties:
+                      schema:
+                        type: string
+                      type:
+                        pattern: dev.knative.apiserver.resource.delete
+                        type: string
+                    type: object
+                  updateRef:
+                    properties:
+                      schema:
+                        type: string
+                      type:
+                        pattern: dev.knative.apiserver.ref.update
+                        type: string
+                    type: object
+                  updateResource:
+                    properties:
+                      schema:
+                        type: string
+                      type:
+                        pattern: dev.knative.apiserver.resource.update
+                        type: string
+                    type: object
+                type: object
+            type: object
+          spec:
+            properties:
+              mode:
+                description: 'Mode controls the content of the event payload. One
+                  of: ''Ref'' (only references of resources), ''Resource'' (full resource).'
+                type: string
+              resources:
+                items:
+                  properties:
+                    apiVersion:
+                      description: API version of the objects to watch.
+                      type: string
+                    controller:
+                      description: 'If true, emits the managing controller ref. Only
+                        supported for mode=Ref. More info: https://kubernetes.io/docs/concepts/workloads/controllers/garbage-collection/'
+                      type: boolean
+                    controllerSelector:
+                      description: Controller selector restricting the list of objects
+                        to watch by a controlling owner reference of the specified
+                        kind.
+                      properties:
+                        apiVersion:
+                          description: API version of the controlling owner reference.
+                          type: string
+                        kind:
+                          description: Kind of the controlling owner reference.
+                          type: string
+                      type: object
+                    kind:
+                      description: Kind of the objects to watch.
+                      type: string
+                    labelSelector:
+                      description: 'Label selector restricting this  list of objects
+                        to watch by their labels. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/'
+                      type: object
+                type: array
+              serviceAccountName:
+                description: 'name of the ServiceAccount to use to run the receive
+                  adapter. More info: https://kubernetes.io/docs/reference/access-authn-authz/service-accounts-admin/.'
+                type: string
+              sink:
+                description: A reference to the object that should receive events.
+                type: object
+            required:
+            - resources
+            - sink
+            type: object
+          status:
+            properties:
+              conditions:
+                items:
+                  properties:
+                    lastTransitionTime:
+                      type: string
+                    message:
+                      type: string
+                    reason:
+                      type: string
+                    severity:
+                      type: string
+                    status:
+                      type: string
+                    type:
+                      type: string
+                  required:
+                  - type
+                  - status
+                  type: object
+                type: array
+              sinkUri:
+                type: string
+            type: object
+    version: v1alpha1
+    versions:
+    - name: v1alpha1
+      served: true
+      storage: true
+  status:
+    acceptedNames:
+      categories:
+      - all
+      - knative
+      - eventing
+      - sources
+      kind: ApiServerSource
+      listKind: ApiServerSourceList
+      plural: apiserversources
+      singular: apiserversource
+    conditions:
+    - lastTransitionTime: "2019-10-28T23:42:31Z"
+      message: no conflicts found
+      reason: NoConflicts
+      status: "True"
+      type: NamesAccepted
+    - lastTransitionTime: null
+      message: the initial names have been accepted
+      reason: InitialNamesAccepted
+      status: "True"
+      type: Established
+    storedVersions:
+    - v1alpha1
+- apiVersion: apiextensions.k8s.io/v1beta1
+  kind: CustomResourceDefinition
+  metadata:
+    annotations:
+      helm.sh/hook: crd-install
+    creationTimestamp: "2019-10-28T23:19:52Z"
+    generation: 1
+    name: authconfigs.enterprise.gloo.solo.io
+    resourceVersion: "1337"
+    selfLink: /apis/apiextensions.k8s.io/v1beta1/customresourcedefinitions/authconfigs.enterprise.gloo.solo.io
+    uid: 71ef1179-f9d9-11e9-968e-0a094f6cd970
+  spec:
+    conversion:
+      strategy: None
+    group: enterprise.gloo.solo.io
+    names:
+      kind: AuthConfig
+      listKind: AuthConfigList
+      plural: authconfigs
+      shortNames:
+      - ac
+      singular: authconfig
+    scope: Namespaced
+    version: v1
+    versions:
+    - name: v1
+      served: true
+      storage: true
+  status:
+    acceptedNames:
+      kind: AuthConfig
+      listKind: AuthConfigList
+      plural: authconfigs
+      shortNames:
+      - ac
+      singular: authconfig
+    conditions:
+    - lastTransitionTime: "2019-10-28T23:19:52Z"
+      message: no conflicts found
+      reason: NoConflicts
+      status: "True"
+      type: NamesAccepted
+    - lastTransitionTime: null
+      message: the initial names have been accepted
+      reason: InitialNamesAccepted
+      status: "True"
+      type: Established
+    storedVersions:
+    - v1
+- apiVersion: apiextensions.k8s.io/v1beta1
+  kind: CustomResourceDefinition
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apiextensions.k8s.io/v1beta1","kind":"CustomResourceDefinition","metadata":{"annotations":{},"labels":{"eventing.knative.dev/release":"v0.9.0","knative.dev/crd-install":"true"},"name":"brokers.eventing.knative.dev"},"spec":{"additionalPrinterColumns":[{"JSONPath":".status.conditions[?(@.type==\"Ready\")].status","name":"Ready","type":"string"},{"JSONPath":".status.conditions[?(@.type==\"Ready\")].reason","name":"Reason","type":"string"},{"JSONPath":".status.address.hostname","name":"Hostname","type":"string"},{"JSONPath":".metadata.creationTimestamp","name":"Age","type":"date"}],"group":"eventing.knative.dev","names":{"categories":["all","knative","eventing"],"kind":"Broker","plural":"brokers","singular":"broker"},"scope":"Namespaced","subresources":{"status":{}},"validation":{"openAPIV3Schema":{"properties":{"spec":{"properties":{"channelTemplate":{"properties":{"arguments":{"type":"object"},"provisioner":{"properties":{"apiVersion":{"minLength":1,"type":"string"},"kind":{"minLength":1,"type":"string"},"name":{"minLength":1,"type":"string"}},"required":["apiVersion","kind","name"],"type":"object"}},"required":["provisioner"],"type":"object"}}}}}},"versions":[{"name":"v1alpha1","served":true,"storage":true}]}}
+    creationTimestamp: "2019-10-28T23:42:31Z"
+    generation: 1
+    labels:
+      eventing.knative.dev/release: v0.9.0
+      knative.dev/crd-install: "true"
+    name: brokers.eventing.knative.dev
+    resourceVersion: "7273"
+    selfLink: /apis/apiextensions.k8s.io/v1beta1/customresourcedefinitions/brokers.eventing.knative.dev
+    uid: 9bd177e8-f9dc-11e9-968e-0a094f6cd970
+  spec:
+    additionalPrinterColumns:
+    - JSONPath: .status.conditions[?(@.type=="Ready")].status
+      name: Ready
+      type: string
+    - JSONPath: .status.conditions[?(@.type=="Ready")].reason
+      name: Reason
+      type: string
+    - JSONPath: .status.address.hostname
+      name: Hostname
+      type: string
+    - JSONPath: .metadata.creationTimestamp
+      name: Age
+      type: date
+    conversion:
+      strategy: None
+    group: eventing.knative.dev
+    names:
+      categories:
+      - all
+      - knative
+      - eventing
+      kind: Broker
+      listKind: BrokerList
+      plural: brokers
+      singular: broker
+    scope: Namespaced
+    subresources:
+      status: {}
+    validation:
+      openAPIV3Schema:
+        properties:
+          spec:
+            properties:
+              channelTemplate:
+                properties:
+                  arguments:
+                    type: object
+                  provisioner:
+                    properties:
+                      apiVersion:
+                        minLength: 1
+                        type: string
+                      kind:
+                        minLength: 1
+                        type: string
+                      name:
+                        minLength: 1
+                        type: string
+                    required:
+                    - apiVersion
+                    - kind
+                    - name
+                    type: object
+                required:
+                - provisioner
+                type: object
+    version: v1alpha1
+    versions:
+    - name: v1alpha1
+      served: true
+      storage: true
+  status:
+    acceptedNames:
+      categories:
+      - all
+      - knative
+      - eventing
+      kind: Broker
+      listKind: BrokerList
+      plural: brokers
+      singular: broker
+    conditions:
+    - lastTransitionTime: "2019-10-28T23:42:31Z"
+      message: no conflicts found
+      reason: NoConflicts
+      status: "True"
+      type: NamesAccepted
+    - lastTransitionTime: null
+      message: the initial names have been accepted
+      reason: InitialNamesAccepted
+      status: "True"
+      type: Established
+    storedVersions:
+    - v1alpha1
+- apiVersion: apiextensions.k8s.io/v1beta1
+  kind: CustomResourceDefinition
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apiextensions.k8s.io/v1beta1","kind":"CustomResourceDefinition","metadata":{"annotations":{},"labels":{"knative.dev/crd-install":"true","serving.knative.dev/release":"v0.9.0"},"name":"certificates.networking.internal.knative.dev"},"spec":{"additionalPrinterColumns":[{"JSONPath":".status.conditions[?(@.type==\"Ready\")].status","name":"Ready","type":"string"},{"JSONPath":".status.conditions[?(@.type==\"Ready\")].reason","name":"Reason","type":"string"}],"group":"networking.internal.knative.dev","names":{"categories":["knative-internal","networking"],"kind":"Certificate","plural":"certificates","shortNames":["kcert"],"singular":"certificate"},"scope":"Namespaced","subresources":{"status":{}},"version":"v1alpha1"}}
+    creationTimestamp: "2019-10-28T23:42:29Z"
+    generation: 1
+    labels:
+      knative.dev/crd-install: "true"
+      serving.knative.dev/release: v0.9.0
+    name: certificates.networking.internal.knative.dev
+    resourceVersion: "7234"
+    selfLink: /apis/apiextensions.k8s.io/v1beta1/customresourcedefinitions/certificates.networking.internal.knative.dev
+    uid: 9aeadd14-f9dc-11e9-968e-0a094f6cd970
+  spec:
+    additionalPrinterColumns:
+    - JSONPath: .status.conditions[?(@.type=="Ready")].status
+      name: Ready
+      type: string
+    - JSONPath: .status.conditions[?(@.type=="Ready")].reason
+      name: Reason
+      type: string
+    conversion:
+      strategy: None
+    group: networking.internal.knative.dev
+    names:
+      categories:
+      - knative-internal
+      - networking
+      kind: Certificate
+      listKind: CertificateList
+      plural: certificates
+      shortNames:
+      - kcert
+      singular: certificate
+    scope: Namespaced
+    subresources:
+      status: {}
+    version: v1alpha1
+    versions:
+    - name: v1alpha1
+      served: true
+      storage: true
+  status:
+    acceptedNames:
+      categories:
+      - knative-internal
+      - networking
+      kind: Certificate
+      listKind: CertificateList
+      plural: certificates
+      shortNames:
+      - kcert
+      singular: certificate
+    conditions:
+    - lastTransitionTime: "2019-10-28T23:42:29Z"
+      message: no conflicts found
+      reason: NoConflicts
+      status: "True"
+      type: NamesAccepted
+    - lastTransitionTime: null
+      message: the initial names have been accepted
+      reason: InitialNamesAccepted
+      status: "True"
+      type: Established
+    storedVersions:
+    - v1alpha1
+- apiVersion: apiextensions.k8s.io/v1beta1
+  kind: CustomResourceDefinition
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apiextensions.k8s.io/v1beta1","kind":"CustomResourceDefinition","metadata":{"annotations":{},"labels":{"eventing.knative.dev/release":"v0.9.0","knative.dev/crd-install":"true"},"name":"channels.eventing.knative.dev"},"spec":{"additionalPrinterColumns":[{"JSONPath":".status.conditions[?(@.type==\"Ready\")].status","name":"Ready","type":"string"},{"JSONPath":".status.conditions[?(@.type==\"Ready\")].reason","name":"Reason","type":"string"},{"JSONPath":".metadata.creationTimestamp","name":"Age","type":"date"}],"group":"eventing.knative.dev","names":{"categories":["all","knative","eventing"],"kind":"Channel","plural":"channels","shortNames":["chan"],"singular":"channel"},"scope":"Namespaced","subresources":{"status":{}},"validation":{"openAPIV3Schema":{"properties":{"spec":{"properties":{"arguments":{"type":"object"},"provisioner":{"properties":{"apiVersion":{"minLength":1,"type":"string"},"kind":{"minLength":1,"type":"string"},"name":{"minLength":1,"type":"string"}},"required":["apiVersion","kind","name"],"type":"object"},"subscribable":{"properties":{"subscribers":{"items":{"properties":{"generation":{"type":"integer"},"ref":{"properties":{"apiVersion":{"type":"string"},"kind":{"type":"string"},"name":{"minLength":1,"type":"string"},"namespace":{"minLength":1,"type":"string"},"uid":{"minLength":1,"type":"string"}},"required":["namespace","name","uid"],"type":"object"},"replyURI":{"minLength":1,"type":"string"},"subscriberURI":{"minLength":1,"type":"string"},"uid":{"minLength":1,"type":"string"}},"required":["uid"]},"type":"array"}},"type":"object"}}}}}},"versions":[{"name":"v1alpha1","served":true,"storage":true}]}}
+    creationTimestamp: "2019-10-28T23:42:31Z"
+    generation: 1
+    labels:
+      eventing.knative.dev/release: v0.9.0
+      knative.dev/crd-install: "true"
+    name: channels.eventing.knative.dev
+    resourceVersion: "7276"
+    selfLink: /apis/apiextensions.k8s.io/v1beta1/customresourcedefinitions/channels.eventing.knative.dev
+    uid: 9bd93612-f9dc-11e9-968e-0a094f6cd970
+  spec:
+    additionalPrinterColumns:
+    - JSONPath: .status.conditions[?(@.type=="Ready")].status
+      name: Ready
+      type: string
+    - JSONPath: .status.conditions[?(@.type=="Ready")].reason
+      name: Reason
+      type: string
+    - JSONPath: .metadata.creationTimestamp
+      name: Age
+      type: date
+    conversion:
+      strategy: None
+    group: eventing.knative.dev
+    names:
+      categories:
+      - all
+      - knative
+      - eventing
+      kind: Channel
+      listKind: ChannelList
+      plural: channels
+      shortNames:
+      - chan
+      singular: channel
+    scope: Namespaced
+    subresources:
+      status: {}
+    validation:
+      openAPIV3Schema:
+        properties:
+          spec:
+            properties:
+              arguments:
+                type: object
+              provisioner:
+                properties:
+                  apiVersion:
+                    minLength: 1
+                    type: string
+                  kind:
+                    minLength: 1
+                    type: string
+                  name:
+                    minLength: 1
+                    type: string
+                required:
+                - apiVersion
+                - kind
+                - name
+                type: object
+              subscribable:
+                properties:
+                  subscribers:
+                    items:
+                      properties:
+                        generation:
+                          type: integer
+                        ref:
+                          properties:
+                            apiVersion:
+                              type: string
+                            kind:
+                              type: string
+                            name:
+                              minLength: 1
+                              type: string
+                            namespace:
+                              minLength: 1
+                              type: string
+                            uid:
+                              minLength: 1
+                              type: string
+                          required:
+                          - namespace
+                          - name
+                          - uid
+                          type: object
+                        replyURI:
+                          minLength: 1
+                          type: string
+                        subscriberURI:
+                          minLength: 1
+                          type: string
+                        uid:
+                          minLength: 1
+                          type: string
+                      required:
+                      - uid
+                    type: array
+                type: object
+    version: v1alpha1
+    versions:
+    - name: v1alpha1
+      served: true
+      storage: true
+  status:
+    acceptedNames:
+      categories:
+      - all
+      - knative
+      - eventing
+      kind: Channel
+      listKind: ChannelList
+      plural: channels
+      shortNames:
+      - chan
+      singular: channel
+    conditions:
+    - lastTransitionTime: "2019-10-28T23:42:31Z"
+      message: no conflicts found
+      reason: NoConflicts
+      status: "True"
+      type: NamesAccepted
+    - lastTransitionTime: null
+      message: the initial names have been accepted
+      reason: InitialNamesAccepted
+      status: "True"
+      type: Established
+    storedVersions:
+    - v1alpha1
+- apiVersion: apiextensions.k8s.io/v1beta1
+  kind: CustomResourceDefinition
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apiextensions.k8s.io/v1beta1","kind":"CustomResourceDefinition","metadata":{"annotations":{},"labels":{"eventing.knative.dev/release":"v0.9.0","knative.dev/crd-install":"true","messaging.knative.dev/subscribable":"true"},"name":"channels.messaging.knative.dev"},"spec":{"additionalPrinterColumns":[{"JSONPath":".status.conditions[?(@.type==\"Ready\")].status","name":"Ready","type":"string"},{"JSONPath":".status.conditions[?(@.type==\"Ready\")].reason","name":"Reason","type":"string"},{"JSONPath":".status.address.url","name":"URL","type":"string"},{"JSONPath":".metadata.creationTimestamp","name":"Age","type":"date"}],"group":"messaging.knative.dev","names":{"categories":["all","knative","messaging","channel"],"kind":"Channel","plural":"channels","shortNames":["ch"],"singular":"channel"},"scope":"Namespaced","subresources":{"status":{}},"validation":{"openAPIV3Schema":{"properties":{"spec":{"properties":{"channelTemplate":{"properties":{"apiVersion":{"minLength":1,"type":"string"},"kind":{"minLength":1,"type":"string"},"spec":{"type":"object"}},"required":["apiVersion","kind"],"type":"object"},"subscribable":{"properties":{"subscribers":{"items":{"properties":{"ref":{"properties":{"apiVersion":{"type":"string"},"kind":{"type":"string"},"name":{"minLength":1,"type":"string"},"namespace":{"minLength":1,"type":"string"},"uid":{"minLength":1,"type":"string"}},"required":["namespace","name","uid"],"type":"object"},"replyURI":{"minLength":1,"type":"string"},"subscriberURI":{"minLength":1,"type":"string"},"uid":{"minLength":1,"type":"string"}},"required":["uid"]},"type":"array"}},"type":"object"}}}}}},"versions":[{"name":"v1alpha1","served":true,"storage":true}]}}
+    creationTimestamp: "2019-10-28T23:42:31Z"
+    generation: 1
+    labels:
+      eventing.knative.dev/release: v0.9.0
+      knative.dev/crd-install: "true"
+      messaging.knative.dev/subscribable: "true"
+    name: channels.messaging.knative.dev
+    resourceVersion: "7281"
+    selfLink: /apis/apiextensions.k8s.io/v1beta1/customresourcedefinitions/channels.messaging.knative.dev
+    uid: 9be19dd1-f9dc-11e9-968e-0a094f6cd970
+  spec:
+    additionalPrinterColumns:
+    - JSONPath: .status.conditions[?(@.type=="Ready")].status
+      name: Ready
+      type: string
+    - JSONPath: .status.conditions[?(@.type=="Ready")].reason
+      name: Reason
+      type: string
+    - JSONPath: .status.address.url
+      name: URL
+      type: string
+    - JSONPath: .metadata.creationTimestamp
+      name: Age
+      type: date
+    conversion:
+      strategy: None
+    group: messaging.knative.dev
+    names:
+      categories:
+      - all
+      - knative
+      - messaging
+      - channel
+      kind: Channel
+      listKind: ChannelList
+      plural: channels
+      shortNames:
+      - ch
+      singular: channel
+    scope: Namespaced
+    subresources:
+      status: {}
+    validation:
+      openAPIV3Schema:
+        properties:
+          spec:
+            properties:
+              channelTemplate:
+                properties:
+                  apiVersion:
+                    minLength: 1
+                    type: string
+                  kind:
+                    minLength: 1
+                    type: string
+                  spec:
+                    type: object
+                required:
+                - apiVersion
+                - kind
+                type: object
+              subscribable:
+                properties:
+                  subscribers:
+                    items:
+                      properties:
+                        ref:
+                          properties:
+                            apiVersion:
+                              type: string
+                            kind:
+                              type: string
+                            name:
+                              minLength: 1
+                              type: string
+                            namespace:
+                              minLength: 1
+                              type: string
+                            uid:
+                              minLength: 1
+                              type: string
+                          required:
+                          - namespace
+                          - name
+                          - uid
+                          type: object
+                        replyURI:
+                          minLength: 1
+                          type: string
+                        subscriberURI:
+                          minLength: 1
+                          type: string
+                        uid:
+                          minLength: 1
+                          type: string
+                      required:
+                      - uid
+                    type: array
+                type: object
+    version: v1alpha1
+    versions:
+    - name: v1alpha1
+      served: true
+      storage: true
+  status:
+    acceptedNames:
+      categories:
+      - all
+      - knative
+      - messaging
+      - channel
+      kind: Channel
+      listKind: ChannelList
+      plural: channels
+      shortNames:
+      - ch
+      singular: channel
+    conditions:
+    - lastTransitionTime: "2019-10-28T23:42:31Z"
+      message: no conflicts found
+      reason: NoConflicts
+      status: "True"
+      type: NamesAccepted
+    - lastTransitionTime: null
+      message: the initial names have been accepted
+      reason: InitialNamesAccepted
+      status: "True"
+      type: Established
+    storedVersions:
+    - v1alpha1
+- apiVersion: apiextensions.k8s.io/v1beta1
+  kind: CustomResourceDefinition
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apiextensions.k8s.io/v1beta1","kind":"CustomResourceDefinition","metadata":{"annotations":{},"labels":{"knative.dev/crd-install":"true","serving.knative.dev/release":"v0.9.0"},"name":"clusteringresses.networking.internal.knative.dev"},"spec":{"additionalPrinterColumns":[{"JSONPath":".status.conditions[?(@.type=='Ready')].status","name":"Ready","type":"string"},{"JSONPath":".status.conditions[?(@.type=='Ready')].reason","name":"Reason","type":"string"}],"group":"networking.internal.knative.dev","names":{"categories":["knative-internal","networking"],"kind":"ClusterIngress","plural":"clusteringresses","singular":"clusteringress"},"scope":"Cluster","subresources":{"status":{}},"versions":[{"name":"v1alpha1","served":true,"storage":true}]}}
+    creationTimestamp: "2019-10-28T23:42:29Z"
+    generation: 1
+    labels:
+      knative.dev/crd-install: "true"
+      serving.knative.dev/release: v0.9.0
+    name: clusteringresses.networking.internal.knative.dev
+    resourceVersion: "7237"
+    selfLink: /apis/apiextensions.k8s.io/v1beta1/customresourcedefinitions/clusteringresses.networking.internal.knative.dev
+    uid: 9af2425c-f9dc-11e9-968e-0a094f6cd970
+  spec:
+    additionalPrinterColumns:
+    - JSONPath: .status.conditions[?(@.type=='Ready')].status
+      name: Ready
+      type: string
+    - JSONPath: .status.conditions[?(@.type=='Ready')].reason
+      name: Reason
+      type: string
+    conversion:
+      strategy: None
+    group: networking.internal.knative.dev
+    names:
+      categories:
+      - knative-internal
+      - networking
+      kind: ClusterIngress
+      listKind: ClusterIngressList
+      plural: clusteringresses
+      singular: clusteringress
+    scope: Cluster
+    subresources:
+      status: {}
+    version: v1alpha1
+    versions:
+    - name: v1alpha1
+      served: true
+      storage: true
+  status:
+    acceptedNames:
+      categories:
+      - knative-internal
+      - networking
+      kind: ClusterIngress
+      listKind: ClusterIngressList
+      plural: clusteringresses
+      singular: clusteringress
+    conditions:
+    - lastTransitionTime: "2019-10-28T23:42:29Z"
+      message: no conflicts found
+      reason: NoConflicts
+      status: "True"
+      type: NamesAccepted
+    - lastTransitionTime: null
+      message: the initial names have been accepted
+      reason: InitialNamesAccepted
+      status: "True"
+      type: Established
+    storedVersions:
+    - v1alpha1
+- apiVersion: apiextensions.k8s.io/v1beta1
+  kind: CustomResourceDefinition
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apiextensions.k8s.io/v1beta1","kind":"CustomResourceDefinition","metadata":{"annotations":{},"labels":{"knative.dev/crd-install":"true","serving.knative.dev/release":"v0.9.0"},"name":"configurations.serving.knative.dev"},"spec":{"additionalPrinterColumns":[{"JSONPath":".status.latestCreatedRevisionName","name":"LatestCreated","type":"string"},{"JSONPath":".status.latestReadyRevisionName","name":"LatestReady","type":"string"},{"JSONPath":".status.conditions[?(@.type=='Ready')].status","name":"Ready","type":"string"},{"JSONPath":".status.conditions[?(@.type=='Ready')].reason","name":"Reason","type":"string"}],"group":"serving.knative.dev","names":{"categories":["all","knative","serving"],"kind":"Configuration","plural":"configurations","shortNames":["config","cfg"],"singular":"configuration"},"scope":"Namespaced","subresources":{"status":{}},"versions":[{"name":"v1alpha1","served":true,"storage":true}]}}
+    creationTimestamp: "2019-10-28T23:42:30Z"
+    generation: 1
+    labels:
+      knative.dev/crd-install: "true"
+      serving.knative.dev/release: v0.9.0
+    name: configurations.serving.knative.dev
+    resourceVersion: "7258"
+    selfLink: /apis/apiextensions.k8s.io/v1beta1/customresourcedefinitions/configurations.serving.knative.dev
+    uid: 9b1ed32e-f9dc-11e9-968e-0a094f6cd970
+  spec:
+    additionalPrinterColumns:
+    - JSONPath: .status.latestCreatedRevisionName
+      name: LatestCreated
+      type: string
+    - JSONPath: .status.latestReadyRevisionName
+      name: LatestReady
+      type: string
+    - JSONPath: .status.conditions[?(@.type=='Ready')].status
+      name: Ready
+      type: string
+    - JSONPath: .status.conditions[?(@.type=='Ready')].reason
+      name: Reason
+      type: string
+    conversion:
+      strategy: None
+    group: serving.knative.dev
+    names:
+      categories:
+      - all
+      - knative
+      - serving
+      kind: Configuration
+      listKind: ConfigurationList
+      plural: configurations
+      shortNames:
+      - config
+      - cfg
+      singular: configuration
+    scope: Namespaced
+    subresources:
+      status: {}
+    version: v1alpha1
+    versions:
+    - name: v1alpha1
+      served: true
+      storage: true
+  status:
+    acceptedNames:
+      categories:
+      - all
+      - knative
+      - serving
+      kind: Configuration
+      listKind: ConfigurationList
+      plural: configurations
+      shortNames:
+      - config
+      - cfg
+      singular: configuration
+    conditions:
+    - lastTransitionTime: "2019-10-28T23:42:30Z"
+      message: no conflicts found
+      reason: NoConflicts
+      status: "True"
+      type: NamesAccepted
+    - lastTransitionTime: null
+      message: the initial names have been accepted
+      reason: InitialNamesAccepted
+      status: "True"
+      type: Established
+    storedVersions:
+    - v1alpha1
+- apiVersion: apiextensions.k8s.io/v1beta1
+  kind: CustomResourceDefinition
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apiextensions.k8s.io/v1beta1","kind":"CustomResourceDefinition","metadata":{"annotations":{},"labels":{"eventing.knative.dev/release":"v0.9.0","eventing.knative.dev/source":"true","knative.dev/crd-install":"true"},"name":"containersources.sources.eventing.knative.dev"},"spec":{"group":"sources.eventing.knative.dev","names":{"categories":["all","knative","eventing","sources"],"kind":"ContainerSource","plural":"containersources"},"scope":"Namespaced","subresources":{"status":{}},"validation":{"openAPIV3Schema":{"properties":{"apiVersion":{"type":"string"},"kind":{"type":"string"},"metadata":{"type":"object"},"spec":{"properties":{"args":{"items":{"type":"string"},"type":"array"},"env":{"items":{"type":"object"},"type":"array"},"image":{"minLength":1,"type":"string"},"serviceAccountName":{"type":"string"},"sink":{"type":"object"},"template":{"type":"object"}},"type":"object"},"status":{"properties":{"conditions":{"items":{"properties":{"lastTransitionTime":{"type":"string"},"message":{"type":"string"},"reason":{"type":"string"},"severity":{"type":"string"},"status":{"type":"string"},"type":{"type":"string"}},"required":["type","status"],"type":"object"},"type":"array"},"sinkUri":{"type":"string"}},"type":"object"}}}},"versions":[{"name":"v1alpha1","served":true,"storage":true}]}}
+    creationTimestamp: "2019-10-28T23:42:31Z"
+    generation: 1
+    labels:
+      eventing.knative.dev/release: v0.9.0
+      eventing.knative.dev/source: "true"
+      knative.dev/crd-install: "true"
+    name: containersources.sources.eventing.knative.dev
+    resourceVersion: "7284"
+    selfLink: /apis/apiextensions.k8s.io/v1beta1/customresourcedefinitions/containersources.sources.eventing.knative.dev
+    uid: 9bead4d6-f9dc-11e9-968e-0a094f6cd970
+  spec:
+    conversion:
+      strategy: None
+    group: sources.eventing.knative.dev
+    names:
+      categories:
+      - all
+      - knative
+      - eventing
+      - sources
+      kind: ContainerSource
+      listKind: ContainerSourceList
+      plural: containersources
+      singular: containersource
+    scope: Namespaced
+    subresources:
+      status: {}
+    validation:
+      openAPIV3Schema:
+        properties:
+          apiVersion:
+            type: string
+          kind:
+            type: string
+          metadata:
+            type: object
+          spec:
+            properties:
+              args:
+                items:
+                  type: string
+                type: array
+              env:
+                items:
+                  type: object
+                type: array
+              image:
+                minLength: 1
+                type: string
+              serviceAccountName:
+                type: string
+              sink:
+                type: object
+              template:
+                type: object
+            type: object
+          status:
+            properties:
+              conditions:
+                items:
+                  properties:
+                    lastTransitionTime:
+                      type: string
+                    message:
+                      type: string
+                    reason:
+                      type: string
+                    severity:
+                      type: string
+                    status:
+                      type: string
+                    type:
+                      type: string
+                  required:
+                  - type
+                  - status
+                  type: object
+                type: array
+              sinkUri:
+                type: string
+            type: object
+    version: v1alpha1
+    versions:
+    - name: v1alpha1
+      served: true
+      storage: true
+  status:
+    acceptedNames:
+      categories:
+      - all
+      - knative
+      - eventing
+      - sources
+      kind: ContainerSource
+      listKind: ContainerSourceList
+      plural: containersources
+      singular: containersource
+    conditions:
+    - lastTransitionTime: "2019-10-28T23:42:31Z"
+      message: no conflicts found
+      reason: NoConflicts
+      status: "True"
+      type: NamesAccepted
+    - lastTransitionTime: null
+      message: the initial names have been accepted
+      reason: InitialNamesAccepted
+      status: "True"
+      type: Established
+    storedVersions:
+    - v1alpha1
+- apiVersion: apiextensions.k8s.io/v1beta1
+  kind: CustomResourceDefinition
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apiextensions.k8s.io/v1beta1","kind":"CustomResourceDefinition","metadata":{"annotations":{},"labels":{"eventing.knative.dev/release":"v0.9.0","eventing.knative.dev/source":"true","knative.dev/crd-install":"true"},"name":"cronjobsources.sources.eventing.knative.dev"},"spec":{"group":"sources.eventing.knative.dev","names":{"categories":["all","knative","eventing","sources"],"kind":"CronJobSource","plural":"cronjobsources"},"scope":"Namespaced","subresources":{"status":{}},"validation":{"openAPIV3Schema":{"properties":{"registry":{"description":"Internal information, users should not set this property","properties":{"eventTypes":{"description":"Event types that CronJobSource can produce","properties":{"cron":{"properties":{"schema":{"type":"string"},"type":{"pattern":"dev.knative.cronjob.event","type":"string"}},"type":"object"}},"type":"object"}},"type":"object"},"spec":{"properties":{"data":{"type":"string"},"resources":{"properties":{"limits":{"properties":{"cpu":{"type":"string"},"memory":{"type":"string"}},"type":"object"},"requests":{"properties":{"cpu":{"type":"string"},"memory":{"type":"string"}},"type":"object"}},"type":"object"},"schedule":{"type":"string"},"serviceAccountName":{"type":"string"},"sink":{"type":"object"}},"required":["schedule"],"type":"object"},"status":{"properties":{"conditions":{"items":{"properties":{"lastTransitionTime":{"type":"string"},"message":{"type":"string"},"reason":{"type":"string"},"severity":{"type":"string"},"status":{"type":"string"},"type":{"type":"string"}},"required":["type","status"],"type":"object"},"type":"array"},"sinkUri":{"type":"string"}},"type":"object"}}}},"versions":[{"name":"v1alpha1","served":true,"storage":true}]}}
+    creationTimestamp: "2019-10-28T23:42:31Z"
+    generation: 1
+    labels:
+      eventing.knative.dev/release: v0.9.0
+      eventing.knative.dev/source: "true"
+      knative.dev/crd-install: "true"
+    name: cronjobsources.sources.eventing.knative.dev
+    resourceVersion: "7288"
+    selfLink: /apis/apiextensions.k8s.io/v1beta1/customresourcedefinitions/cronjobsources.sources.eventing.knative.dev
+    uid: 9bf1f2e6-f9dc-11e9-968e-0a094f6cd970
+  spec:
+    conversion:
+      strategy: None
+    group: sources.eventing.knative.dev
+    names:
+      categories:
+      - all
+      - knative
+      - eventing
+      - sources
+      kind: CronJobSource
+      listKind: CronJobSourceList
+      plural: cronjobsources
+      singular: cronjobsource
+    scope: Namespaced
+    subresources:
+      status: {}
+    validation:
+      openAPIV3Schema:
+        properties:
+          registry:
+            description: Internal information, users should not set this property
+            properties:
+              eventTypes:
+                description: Event types that CronJobSource can produce
+                properties:
+                  cron:
+                    properties:
+                      schema:
+                        type: string
+                      type:
+                        pattern: dev.knative.cronjob.event
+                        type: string
+                    type: object
+                type: object
+            type: object
+          spec:
+            properties:
+              data:
+                type: string
+              resources:
+                properties:
+                  limits:
+                    properties:
+                      cpu:
+                        type: string
+                      memory:
+                        type: string
+                    type: object
+                  requests:
+                    properties:
+                      cpu:
+                        type: string
+                      memory:
+                        type: string
+                    type: object
+                type: object
+              schedule:
+                type: string
+              serviceAccountName:
+                type: string
+              sink:
+                type: object
+            required:
+            - schedule
+            type: object
+          status:
+            properties:
+              conditions:
+                items:
+                  properties:
+                    lastTransitionTime:
+                      type: string
+                    message:
+                      type: string
+                    reason:
+                      type: string
+                    severity:
+                      type: string
+                    status:
+                      type: string
+                    type:
+                      type: string
+                  required:
+                  - type
+                  - status
+                  type: object
+                type: array
+              sinkUri:
+                type: string
+            type: object
+    version: v1alpha1
+    versions:
+    - name: v1alpha1
+      served: true
+      storage: true
+  status:
+    acceptedNames:
+      categories:
+      - all
+      - knative
+      - eventing
+      - sources
+      kind: CronJobSource
+      listKind: CronJobSourceList
+      plural: cronjobsources
+      singular: cronjobsource
+    conditions:
+    - lastTransitionTime: "2019-10-28T23:42:31Z"
+      message: no conflicts found
+      reason: NoConflicts
+      status: "True"
+      type: NamesAccepted
+    - lastTransitionTime: null
+      message: the initial names have been accepted
+      reason: InitialNamesAccepted
+      status: "True"
+      type: Established
+    storedVersions:
+    - v1alpha1
+- apiVersion: apiextensions.k8s.io/v1beta1
+  kind: CustomResourceDefinition
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apiextensions.k8s.io/v1beta1","kind":"CustomResourceDefinition","metadata":{"annotations":{},"name":"eniconfigs.crd.k8s.amazonaws.com"},"spec":{"group":"crd.k8s.amazonaws.com","names":{"kind":"ENIConfig","plural":"eniconfigs","singular":"eniconfig"},"scope":"Cluster","versions":[{"name":"v1alpha1","served":true,"storage":true}]}}
+    creationTimestamp: "2019-10-28T23:11:04Z"
+    generation: 1
+    name: eniconfigs.crd.k8s.amazonaws.com
+    resourceVersion: "161"
+    selfLink: /apis/apiextensions.k8s.io/v1beta1/customresourcedefinitions/eniconfigs.crd.k8s.amazonaws.com
+    uid: 36f8d9bc-f9d8-11e9-968e-0a094f6cd970
+  spec:
+    conversion:
+      strategy: None
+    group: crd.k8s.amazonaws.com
+    names:
+      kind: ENIConfig
+      listKind: ENIConfigList
+      plural: eniconfigs
+      singular: eniconfig
+    scope: Cluster
+    version: v1alpha1
+    versions:
+    - name: v1alpha1
+      served: true
+      storage: true
+  status:
+    acceptedNames:
+      kind: ENIConfig
+      listKind: ENIConfigList
+      plural: eniconfigs
+      singular: eniconfig
+    conditions:
+    - lastTransitionTime: "2019-10-28T23:11:04Z"
+      message: no conflicts found
+      reason: NoConflicts
+      status: "True"
+      type: NamesAccepted
+    - lastTransitionTime: null
+      message: the initial names have been accepted
+      reason: InitialNamesAccepted
+      status: "True"
+      type: Established
+    storedVersions:
+    - v1alpha1
+- apiVersion: apiextensions.k8s.io/v1beta1
+  kind: CustomResourceDefinition
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apiextensions.k8s.io/v1beta1","kind":"CustomResourceDefinition","metadata":{"annotations":{},"labels":{"eventing.knative.dev/release":"v0.9.0","knative.dev/crd-install":"true"},"name":"eventtypes.eventing.knative.dev"},"spec":{"additionalPrinterColumns":[{"JSONPath":".spec.type","name":"Type","type":"string"},{"JSONPath":".spec.source","name":"Source","type":"string"},{"JSONPath":".spec.schema","name":"Schema","type":"string"},{"JSONPath":".spec.broker","name":"Broker","type":"string"},{"JSONPath":".spec.description","name":"Description","type":"string"},{"JSONPath":".status.conditions[?(@.type==\"Ready\")].status","name":"Ready","type":"string"},{"JSONPath":".status.conditions[?(@.type==\"Ready\")].reason","name":"Reason","type":"string"}],"group":"eventing.knative.dev","names":{"categories":["all","knative","eventing"],"kind":"EventType","plural":"eventtypes","singular":"eventtype"},"scope":"Namespaced","subresources":{"status":{}},"validation":{"openAPIV3Schema":{"properties":{"spec":{"properties":{"broker":{"minLength":1,"type":"string"},"description":{"type":"string"},"schema":{"type":"string"},"source":{"minLength":1,"type":"string"},"type":{"minLength":1,"type":"string"}},"required":["type","source","broker"]}}}},"versions":[{"name":"v1alpha1","served":true,"storage":true}]}}
+    creationTimestamp: "2019-10-28T23:42:31Z"
+    generation: 1
+    labels:
+      eventing.knative.dev/release: v0.9.0
+      knative.dev/crd-install: "true"
+    name: eventtypes.eventing.knative.dev
+    resourceVersion: "7291"
+    selfLink: /apis/apiextensions.k8s.io/v1beta1/customresourcedefinitions/eventtypes.eventing.knative.dev
+    uid: 9bfb4159-f9dc-11e9-968e-0a094f6cd970
+  spec:
+    additionalPrinterColumns:
+    - JSONPath: .spec.type
+      name: Type
+      type: string
+    - JSONPath: .spec.source
+      name: Source
+      type: string
+    - JSONPath: .spec.schema
+      name: Schema
+      type: string
+    - JSONPath: .spec.broker
+      name: Broker
+      type: string
+    - JSONPath: .spec.description
+      name: Description
+      type: string
+    - JSONPath: .status.conditions[?(@.type=="Ready")].status
+      name: Ready
+      type: string
+    - JSONPath: .status.conditions[?(@.type=="Ready")].reason
+      name: Reason
+      type: string
+    conversion:
+      strategy: None
+    group: eventing.knative.dev
+    names:
+      categories:
+      - all
+      - knative
+      - eventing
+      kind: EventType
+      listKind: EventTypeList
+      plural: eventtypes
+      singular: eventtype
+    scope: Namespaced
+    subresources:
+      status: {}
+    validation:
+      openAPIV3Schema:
+        properties:
+          spec:
+            properties:
+              broker:
+                minLength: 1
+                type: string
+              description:
+                type: string
+              schema:
+                type: string
+              source:
+                minLength: 1
+                type: string
+              type:
+                minLength: 1
+                type: string
+            required:
+            - type
+            - source
+            - broker
+    version: v1alpha1
+    versions:
+    - name: v1alpha1
+      served: true
+      storage: true
+  status:
+    acceptedNames:
+      categories:
+      - all
+      - knative
+      - eventing
+      kind: EventType
+      listKind: EventTypeList
+      plural: eventtypes
+      singular: eventtype
+    conditions:
+    - lastTransitionTime: "2019-10-28T23:42:31Z"
+      message: no conflicts found
+      reason: NoConflicts
+      status: "True"
+      type: NamesAccepted
+    - lastTransitionTime: null
+      message: the initial names have been accepted
+      reason: InitialNamesAccepted
+      status: "True"
+      type: Established
+    storedVersions:
+    - v1alpha1
+- apiVersion: apiextensions.k8s.io/v1beta1
+  kind: CustomResourceDefinition
+  metadata:
+    annotations:
+      helm.sh/hook: crd-install
+    creationTimestamp: "2019-10-28T23:19:52Z"
+    generation: 1
+    name: gateways.gateway.solo.io.v2
+    resourceVersion: "1343"
+    selfLink: /apis/apiextensions.k8s.io/v1beta1/customresourcedefinitions/gateways.gateway.solo.io.v2
+    uid: 71f4ea19-f9d9-11e9-968e-0a094f6cd970
+  spec:
+    conversion:
+      strategy: None
+    group: gateway.solo.io.v2
+    names:
+      kind: Gateway
+      listKind: GatewayList
+      plural: gateways
+      shortNames:
+      - gw
+      singular: gateway
+    scope: Namespaced
+    version: v2
+    versions:
+    - name: v2
+      served: true
+      storage: true
+  status:
+    acceptedNames:
+      kind: Gateway
+      listKind: GatewayList
+      plural: gateways
+      shortNames:
+      - gw
+      singular: gateway
+    conditions:
+    - lastTransitionTime: "2019-10-28T23:19:52Z"
+      message: no conflicts found
+      reason: NoConflicts
+      status: "True"
+      type: NamesAccepted
+    - lastTransitionTime: null
+      message: the initial names have been accepted
+      reason: InitialNamesAccepted
+      status: "True"
+      type: Established
+    storedVersions:
+    - v2
+- apiVersion: apiextensions.k8s.io/v1beta1
+  kind: CustomResourceDefinition
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apiextensions.k8s.io/v1beta1","kind":"CustomResourceDefinition","metadata":{"annotations":{},"labels":{"knative.dev/crd-install":"true"},"name":"images.caching.internal.knative.dev"},"spec":{"group":"caching.internal.knative.dev","names":{"categories":["knative-internal","caching"],"kind":"Image","plural":"images","shortNames":["img"],"singular":"image"},"scope":"Namespaced","subresources":{"status":{}},"version":"v1alpha1"}}
+    creationTimestamp: "2019-10-28T23:42:29Z"
+    generation: 1
+    labels:
+      knative.dev/crd-install: "true"
+    name: images.caching.internal.knative.dev
+    resourceVersion: "7241"
+    selfLink: /apis/apiextensions.k8s.io/v1beta1/customresourcedefinitions/images.caching.internal.knative.dev
+    uid: 9af9d15f-f9dc-11e9-968e-0a094f6cd970
+  spec:
+    conversion:
+      strategy: None
+    group: caching.internal.knative.dev
+    names:
+      categories:
+      - knative-internal
+      - caching
+      kind: Image
+      listKind: ImageList
+      plural: images
+      shortNames:
+      - img
+      singular: image
+    scope: Namespaced
+    subresources:
+      status: {}
+    version: v1alpha1
+    versions:
+    - name: v1alpha1
+      served: true
+      storage: true
+  status:
+    acceptedNames:
+      categories:
+      - knative-internal
+      - caching
+      kind: Image
+      listKind: ImageList
+      plural: images
+      shortNames:
+      - img
+      singular: image
+    conditions:
+    - lastTransitionTime: "2019-10-28T23:42:29Z"
+      message: no conflicts found
+      reason: NoConflicts
+      status: "True"
+      type: NamesAccepted
+    - lastTransitionTime: null
+      message: the initial names have been accepted
+      reason: InitialNamesAccepted
+      status: "True"
+      type: Established
+    storedVersions:
+    - v1alpha1
+- apiVersion: apiextensions.k8s.io/v1beta1
+  kind: CustomResourceDefinition
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apiextensions.k8s.io/v1beta1","kind":"CustomResourceDefinition","metadata":{"annotations":{},"labels":{"knative.dev/crd-install":"true","serving.knative.dev/release":"v0.9.0"},"name":"ingresses.networking.internal.knative.dev"},"spec":{"additionalPrinterColumns":[{"JSONPath":".status.conditions[?(@.type=='Ready')].status","name":"Ready","type":"string"},{"JSONPath":".status.conditions[?(@.type=='Ready')].reason","name":"Reason","type":"string"}],"group":"networking.internal.knative.dev","names":{"categories":["knative-internal","networking"],"kind":"Ingress","plural":"ingresses","shortNames":["ing"],"singular":"ingress"},"scope":"Namespaced","subresources":{"status":{}},"versions":[{"name":"v1alpha1","served":true,"storage":true}]}}
+    creationTimestamp: "2019-10-28T23:42:30Z"
+    generation: 1
+    labels:
+      knative.dev/crd-install: "true"
+      serving.knative.dev/release: v0.9.0
+    name: ingresses.networking.internal.knative.dev
+    resourceVersion: "7244"
+    selfLink: /apis/apiextensions.k8s.io/v1beta1/customresourcedefinitions/ingresses.networking.internal.knative.dev
+    uid: 9b019da6-f9dc-11e9-968e-0a094f6cd970
+  spec:
+    additionalPrinterColumns:
+    - JSONPath: .status.conditions[?(@.type=='Ready')].status
+      name: Ready
+      type: string
+    - JSONPath: .status.conditions[?(@.type=='Ready')].reason
+      name: Reason
+      type: string
+    conversion:
+      strategy: None
+    group: networking.internal.knative.dev
+    names:
+      categories:
+      - knative-internal
+      - networking
+      kind: Ingress
+      listKind: IngressList
+      plural: ingresses
+      shortNames:
+      - ing
+      singular: ingress
+    scope: Namespaced
+    subresources:
+      status: {}
+    version: v1alpha1
+    versions:
+    - name: v1alpha1
+      served: true
+      storage: true
+  status:
+    acceptedNames:
+      categories:
+      - knative-internal
+      - networking
+      kind: Ingress
+      listKind: IngressList
+      plural: ingresses
+      shortNames:
+      - ing
+      singular: ingress
+    conditions:
+    - lastTransitionTime: "2019-10-28T23:42:30Z"
+      message: no conflicts found
+      reason: NoConflicts
+      status: "True"
+      type: NamesAccepted
+    - lastTransitionTime: null
+      message: the initial names have been accepted
+      reason: InitialNamesAccepted
+      status: "True"
+      type: Established
+    storedVersions:
+    - v1alpha1
+- apiVersion: apiextensions.k8s.io/v1beta1
+  kind: CustomResourceDefinition
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apiextensions.k8s.io/v1beta1","kind":"CustomResourceDefinition","metadata":{"annotations":{},"labels":{"eventing.knative.dev/release":"v0.9.0","knative.dev/crd-install":"true","messaging.knative.dev/subscribable":"true"},"name":"inmemorychannels.messaging.knative.dev"},"spec":{"additionalPrinterColumns":[{"JSONPath":".status.conditions[?(@.type==\"Ready\")].status","name":"Ready","type":"string"},{"JSONPath":".status.conditions[?(@.type==\"Ready\")].reason","name":"Reason","type":"string"},{"JSONPath":".status.address.hostname","name":"Hostname","type":"string"},{"JSONPath":".metadata.creationTimestamp","name":"Age","type":"date"}],"group":"messaging.knative.dev","names":{"categories":["all","knative","messaging","channel"],"kind":"InMemoryChannel","plural":"inmemorychannels","shortNames":["imc"],"singular":"inmemorychannel"},"scope":"Namespaced","subresources":{"status":{}},"validation":{"openAPIV3Schema":{"properties":{"spec":{"properties":{"subscribable":{"properties":{"subscribers":{"items":{"properties":{"ref":{"properties":{"apiVersion":{"type":"string"},"kind":{"type":"string"},"name":{"minLength":1,"type":"string"},"namespace":{"minLength":1,"type":"string"},"uid":{"minLength":1,"type":"string"}},"required":["namespace","name","uid"],"type":"object"},"replyURI":{"minLength":1,"type":"string"},"subscriberURI":{"minLength":1,"type":"string"},"uid":{"minLength":1,"type":"string"}},"required":["uid"]},"type":"array"}},"type":"object"}}}}}},"versions":[{"name":"v1alpha1","served":true,"storage":true}]}}
+    creationTimestamp: "2019-10-28T23:42:31Z"
+    generation: 1
+    labels:
+      eventing.knative.dev/release: v0.9.0
+      knative.dev/crd-install: "true"
+      messaging.knative.dev/subscribable: "true"
+    name: inmemorychannels.messaging.knative.dev
+    resourceVersion: "7307"
+    selfLink: /apis/apiextensions.k8s.io/v1beta1/customresourcedefinitions/inmemorychannels.messaging.knative.dev
+    uid: 9c2529ed-f9dc-11e9-968e-0a094f6cd970
+  spec:
+    additionalPrinterColumns:
+    - JSONPath: .status.conditions[?(@.type=="Ready")].status
+      name: Ready
+      type: string
+    - JSONPath: .status.conditions[?(@.type=="Ready")].reason
+      name: Reason
+      type: string
+    - JSONPath: .status.address.hostname
+      name: Hostname
+      type: string
+    - JSONPath: .metadata.creationTimestamp
+      name: Age
+      type: date
+    conversion:
+      strategy: None
+    group: messaging.knative.dev
+    names:
+      categories:
+      - all
+      - knative
+      - messaging
+      - channel
+      kind: InMemoryChannel
+      listKind: InMemoryChannelList
+      plural: inmemorychannels
+      shortNames:
+      - imc
+      singular: inmemorychannel
+    scope: Namespaced
+    subresources:
+      status: {}
+    validation:
+      openAPIV3Schema:
+        properties:
+          spec:
+            properties:
+              subscribable:
+                properties:
+                  subscribers:
+                    items:
+                      properties:
+                        ref:
+                          properties:
+                            apiVersion:
+                              type: string
+                            kind:
+                              type: string
+                            name:
+                              minLength: 1
+                              type: string
+                            namespace:
+                              minLength: 1
+                              type: string
+                            uid:
+                              minLength: 1
+                              type: string
+                          required:
+                          - namespace
+                          - name
+                          - uid
+                          type: object
+                        replyURI:
+                          minLength: 1
+                          type: string
+                        subscriberURI:
+                          minLength: 1
+                          type: string
+                        uid:
+                          minLength: 1
+                          type: string
+                      required:
+                      - uid
+                    type: array
+                type: object
+    version: v1alpha1
+    versions:
+    - name: v1alpha1
+      served: true
+      storage: true
+  status:
+    acceptedNames:
+      categories:
+      - all
+      - knative
+      - messaging
+      - channel
+      kind: InMemoryChannel
+      listKind: InMemoryChannelList
+      plural: inmemorychannels
+      shortNames:
+      - imc
+      singular: inmemorychannel
+    conditions:
+    - lastTransitionTime: "2019-10-28T23:42:31Z"
+      message: no conflicts found
+      reason: NoConflicts
+      status: "True"
+      type: NamesAccepted
+    - lastTransitionTime: null
+      message: the initial names have been accepted
+      reason: InitialNamesAccepted
+      status: "True"
+      type: Established
+    storedVersions:
+    - v1alpha1
+- apiVersion: apiextensions.k8s.io/v1beta1
+  kind: CustomResourceDefinition
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apiextensions.k8s.io/v1beta1","kind":"CustomResourceDefinition","metadata":{"annotations":{},"labels":{"knative.dev/crd-install":"true","serving.knative.dev/release":"v0.9.0"},"name":"metrics.autoscaling.internal.knative.dev"},"spec":{"additionalPrinterColumns":[{"JSONPath":".status.conditions[?(@.type=='Ready')].status","name":"Ready","type":"string"},{"JSONPath":".status.conditions[?(@.type=='Ready')].reason","name":"Reason","type":"string"}],"group":"autoscaling.internal.knative.dev","names":{"categories":["knative-internal","autoscaling"],"kind":"Metric","plural":"metrics","singular":"metric"},"scope":"Namespaced","subresources":{"status":{}},"version":"v1alpha1"}}
+    creationTimestamp: "2019-10-28T23:42:30Z"
+    generation: 1
+    labels:
+      knative.dev/crd-install: "true"
+      serving.knative.dev/release: v0.9.0
+    name: metrics.autoscaling.internal.knative.dev
+    resourceVersion: "7248"
+    selfLink: /apis/apiextensions.k8s.io/v1beta1/customresourcedefinitions/metrics.autoscaling.internal.knative.dev
+    uid: 9b07f26f-f9dc-11e9-968e-0a094f6cd970
+  spec:
+    additionalPrinterColumns:
+    - JSONPath: .status.conditions[?(@.type=='Ready')].status
+      name: Ready
+      type: string
+    - JSONPath: .status.conditions[?(@.type=='Ready')].reason
+      name: Reason
+      type: string
+    conversion:
+      strategy: None
+    group: autoscaling.internal.knative.dev
+    names:
+      categories:
+      - knative-internal
+      - autoscaling
+      kind: Metric
+      listKind: MetricList
+      plural: metrics
+      singular: metric
+    scope: Namespaced
+    subresources:
+      status: {}
+    version: v1alpha1
+    versions:
+    - name: v1alpha1
+      served: true
+      storage: true
+  status:
+    acceptedNames:
+      categories:
+      - knative-internal
+      - autoscaling
+      kind: Metric
+      listKind: MetricList
+      plural: metrics
+      singular: metric
+    conditions:
+    - lastTransitionTime: "2019-10-28T23:42:30Z"
+      message: no conflicts found
+      reason: NoConflicts
+      status: "True"
+      type: NamesAccepted
+    - lastTransitionTime: null
+      message: the initial names have been accepted
+      reason: InitialNamesAccepted
+      status: "True"
+      type: Established
+    storedVersions:
+    - v1alpha1
+- apiVersion: apiextensions.k8s.io/v1beta1
+  kind: CustomResourceDefinition
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apiextensions.k8s.io/v1beta1","kind":"CustomResourceDefinition","metadata":{"annotations":{},"labels":{"eventing.knative.dev/release":"v0.9.0","knative.dev/crd-install":"true"},"name":"parallels.messaging.knative.dev"},"spec":{"additionalPrinterColumns":[{"JSONPath":".status.conditions[?(@.type==\"Ready\")].status","name":"Ready","type":"string"},{"JSONPath":".status.conditions[?(@.type==\"Ready\")].reason","name":"Reason","type":"string"},{"JSONPath":".status.address.url","name":"URL","type":"string"},{"JSONPath":".metadata.creationTimestamp","name":"Age","type":"date"}],"group":"messaging.knative.dev","names":{"categories":["all","knative","eventing","messaging"],"kind":"Parallel","plural":"parallels","singular":"parallel"},"scope":"Namespaced","subresources":{"status":{}},"validation":{"openAPIV3Schema":{"properties":{"spec":{"properties":{"branches":{"items":{"properties":{"filter":{"properties":{"dnsName":{"minLength":1,"type":"string"},"ref":{"properties":{"apiVersion":{"minLength":1,"type":"string"},"kind":{"minLength":1,"type":"string"},"name":{"minLength":1,"type":"string"},"namespace":{"maxLength":0,"type":"string"}},"required":["apiVersion","kind","name"],"type":"object"},"uri":{"minLength":1,"type":"string"}},"type":"object"},"subscriber":{"properties":{"dnsName":{"minLength":1,"type":"string"},"ref":{"properties":{"apiVersion":{"minLength":1,"type":"string"},"kind":{"minLength":1,"type":"string"},"name":{"minLength":1,"type":"string"},"namespace":{"maxLength":0,"type":"string"}},"required":["apiVersion","kind","name"],"type":"object"},"uri":{"minLength":1,"type":"string"}},"type":"object"}},"required":["subscriber"],"type":"object"},"type":"array"},"channelTemplate":{"properties":{"apiVersion":{"minLength":1,"type":"string"},"kind":{"minLength":1,"type":"string"},"spec":{"type":"object"}},"required":["apiVersion","kind"],"type":"object"}},"required":["branches","channelTemplate"]}}}},"version":"v1alpha1"}}
+    creationTimestamp: "2019-10-28T23:42:31Z"
+    generation: 1
+    labels:
+      eventing.knative.dev/release: v0.9.0
+      knative.dev/crd-install: "true"
+    name: parallels.messaging.knative.dev
+    resourceVersion: "7294"
+    selfLink: /apis/apiextensions.k8s.io/v1beta1/customresourcedefinitions/parallels.messaging.knative.dev
+    uid: 9c02b993-f9dc-11e9-968e-0a094f6cd970
+  spec:
+    additionalPrinterColumns:
+    - JSONPath: .status.conditions[?(@.type=="Ready")].status
+      name: Ready
+      type: string
+    - JSONPath: .status.conditions[?(@.type=="Ready")].reason
+      name: Reason
+      type: string
+    - JSONPath: .status.address.url
+      name: URL
+      type: string
+    - JSONPath: .metadata.creationTimestamp
+      name: Age
+      type: date
+    conversion:
+      strategy: None
+    group: messaging.knative.dev
+    names:
+      categories:
+      - all
+      - knative
+      - eventing
+      - messaging
+      kind: Parallel
+      listKind: ParallelList
+      plural: parallels
+      singular: parallel
+    scope: Namespaced
+    subresources:
+      status: {}
+    validation:
+      openAPIV3Schema:
+        properties:
+          spec:
+            properties:
+              branches:
+                items:
+                  properties:
+                    filter:
+                      properties:
+                        dnsName:
+                          minLength: 1
+                          type: string
+                        ref:
+                          properties:
+                            apiVersion:
+                              minLength: 1
+                              type: string
+                            kind:
+                              minLength: 1
+                              type: string
+                            name:
+                              minLength: 1
+                              type: string
+                            namespace:
+                              maxLength: 0
+                              type: string
+                          required:
+                          - apiVersion
+                          - kind
+                          - name
+                          type: object
+                        uri:
+                          minLength: 1
+                          type: string
+                      type: object
+                    subscriber:
+                      properties:
+                        dnsName:
+                          minLength: 1
+                          type: string
+                        ref:
+                          properties:
+                            apiVersion:
+                              minLength: 1
+                              type: string
+                            kind:
+                              minLength: 1
+                              type: string
+                            name:
+                              minLength: 1
+                              type: string
+                            namespace:
+                              maxLength: 0
+                              type: string
+                          required:
+                          - apiVersion
+                          - kind
+                          - name
+                          type: object
+                        uri:
+                          minLength: 1
+                          type: string
+                      type: object
+                  required:
+                  - subscriber
+                  type: object
+                type: array
+              channelTemplate:
+                properties:
+                  apiVersion:
+                    minLength: 1
+                    type: string
+                  kind:
+                    minLength: 1
+                    type: string
+                  spec:
+                    type: object
+                required:
+                - apiVersion
+                - kind
+                type: object
+            required:
+            - branches
+            - channelTemplate
+    version: v1alpha1
+    versions:
+    - name: v1alpha1
+      served: true
+      storage: true
+  status:
+    acceptedNames:
+      categories:
+      - all
+      - knative
+      - eventing
+      - messaging
+      kind: Parallel
+      listKind: ParallelList
+      plural: parallels
+      singular: parallel
+    conditions:
+    - lastTransitionTime: "2019-10-28T23:42:31Z"
+      message: no conflicts found
+      reason: NoConflicts
+      status: "True"
+      type: NamesAccepted
+    - lastTransitionTime: null
+      message: the initial names have been accepted
+      reason: InitialNamesAccepted
+      status: "True"
+      type: Established
+    storedVersions:
+    - v1alpha1
+- apiVersion: apiextensions.k8s.io/v1beta1
+  kind: CustomResourceDefinition
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apiextensions.k8s.io/v1beta1","kind":"CustomResourceDefinition","metadata":{"annotations":{},"labels":{"knative.dev/crd-install":"true","serving.knative.dev/release":"v0.9.0"},"name":"podautoscalers.autoscaling.internal.knative.dev"},"spec":{"additionalPrinterColumns":[{"JSONPath":".status.desiredScale","name":"DesiredScale","type":"integer"},{"JSONPath":".status.actualScale","name":"ActualScale","type":"integer"},{"JSONPath":".status.conditions[?(@.type=='Ready')].status","name":"Ready","type":"string"},{"JSONPath":".status.conditions[?(@.type=='Ready')].reason","name":"Reason","type":"string"}],"group":"autoscaling.internal.knative.dev","names":{"categories":["knative-internal","autoscaling"],"kind":"PodAutoscaler","plural":"podautoscalers","shortNames":["kpa","pa"],"singular":"podautoscaler"},"scope":"Namespaced","subresources":{"status":{}},"versions":[{"name":"v1alpha1","served":true,"storage":true}]}}
+    creationTimestamp: "2019-10-28T23:42:30Z"
+    generation: 1
+    labels:
+      knative.dev/crd-install: "true"
+      serving.knative.dev/release: v0.9.0
+    name: podautoscalers.autoscaling.internal.knative.dev
+    resourceVersion: "7251"
+    selfLink: /apis/apiextensions.k8s.io/v1beta1/customresourcedefinitions/podautoscalers.autoscaling.internal.knative.dev
+    uid: 9b0e356e-f9dc-11e9-968e-0a094f6cd970
+  spec:
+    additionalPrinterColumns:
+    - JSONPath: .status.desiredScale
+      name: DesiredScale
+      type: integer
+    - JSONPath: .status.actualScale
+      name: ActualScale
+      type: integer
+    - JSONPath: .status.conditions[?(@.type=='Ready')].status
+      name: Ready
+      type: string
+    - JSONPath: .status.conditions[?(@.type=='Ready')].reason
+      name: Reason
+      type: string
+    conversion:
+      strategy: None
+    group: autoscaling.internal.knative.dev
+    names:
+      categories:
+      - knative-internal
+      - autoscaling
+      kind: PodAutoscaler
+      listKind: PodAutoscalerList
+      plural: podautoscalers
+      shortNames:
+      - kpa
+      - pa
+      singular: podautoscaler
+    scope: Namespaced
+    subresources:
+      status: {}
+    version: v1alpha1
+    versions:
+    - name: v1alpha1
+      served: true
+      storage: true
+  status:
+    acceptedNames:
+      categories:
+      - knative-internal
+      - autoscaling
+      kind: PodAutoscaler
+      listKind: PodAutoscalerList
+      plural: podautoscalers
+      shortNames:
+      - kpa
+      - pa
+      singular: podautoscaler
+    conditions:
+    - lastTransitionTime: "2019-10-28T23:42:30Z"
+      message: no conflicts found
+      reason: NoConflicts
+      status: "True"
+      type: NamesAccepted
+    - lastTransitionTime: null
+      message: the initial names have been accepted
+      reason: InitialNamesAccepted
+      status: "True"
+      type: Established
+    storedVersions:
+    - v1alpha1
+- apiVersion: apiextensions.k8s.io/v1beta1
+  kind: CustomResourceDefinition
+  metadata:
+    annotations:
+      helm.sh/hook: crd-install
+    creationTimestamp: "2019-10-28T23:19:52Z"
+    generation: 1
+    name: proxies.gloo.solo.io
+    resourceVersion: "1348"
+    selfLink: /apis/apiextensions.k8s.io/v1beta1/customresourcedefinitions/proxies.gloo.solo.io
+    uid: 71f966d0-f9d9-11e9-968e-0a094f6cd970
+  spec:
+    conversion:
+      strategy: None
+    group: gloo.solo.io
+    names:
+      kind: Proxy
+      listKind: ProxyList
+      plural: proxies
+      shortNames:
+      - px
+      singular: proxy
+    scope: Namespaced
+    version: v1
+    versions:
+    - name: v1
+      served: true
+      storage: true
+  status:
+    acceptedNames:
+      kind: Proxy
+      listKind: ProxyList
+      plural: proxies
+      shortNames:
+      - px
+      singular: proxy
+    conditions:
+    - lastTransitionTime: "2019-10-28T23:19:52Z"
+      message: no conflicts found
+      reason: NoConflicts
+      status: "True"
+      type: NamesAccepted
+    - lastTransitionTime: null
+      message: the initial names have been accepted
+      reason: InitialNamesAccepted
+      status: "True"
+      type: Established
+    storedVersions:
+    - v1
+- apiVersion: apiextensions.k8s.io/v1beta1
+  kind: CustomResourceDefinition
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apiextensions.k8s.io/v1beta1","kind":"CustomResourceDefinition","metadata":{"annotations":{},"labels":{"knative.dev/crd-install":"true","serving.knative.dev/release":"v0.9.0"},"name":"revisions.serving.knative.dev"},"spec":{"additionalPrinterColumns":[{"JSONPath":".metadata.labels['serving\\.knative\\.dev/configuration']","name":"Config Name","type":"string"},{"JSONPath":".status.serviceName","name":"K8s Service Name","type":"string"},{"JSONPath":".metadata.labels['serving\\.knative\\.dev/configurationGeneration']","name":"Generation","type":"string"},{"JSONPath":".status.conditions[?(@.type=='Ready')].status","name":"Ready","type":"string"},{"JSONPath":".status.conditions[?(@.type=='Ready')].reason","name":"Reason","type":"string"}],"group":"serving.knative.dev","names":{"categories":["all","knative","serving"],"kind":"Revision","plural":"revisions","shortNames":["rev"],"singular":"revision"},"scope":"Namespaced","subresources":{"status":{}},"versions":[{"name":"v1alpha1","served":true,"storage":true}]}}
+    creationTimestamp: "2019-10-28T23:42:30Z"
+    generation: 1
+    labels:
+      knative.dev/crd-install: "true"
+      serving.knative.dev/release: v0.9.0
+    name: revisions.serving.knative.dev
+    resourceVersion: "7261"
+    selfLink: /apis/apiextensions.k8s.io/v1beta1/customresourcedefinitions/revisions.serving.knative.dev
+    uid: 9b26a372-f9dc-11e9-968e-0a094f6cd970
+  spec:
+    additionalPrinterColumns:
+    - JSONPath: .metadata.labels['serving\.knative\.dev/configuration']
+      name: Config Name
+      type: string
+    - JSONPath: .status.serviceName
+      name: K8s Service Name
+      type: string
+    - JSONPath: .metadata.labels['serving\.knative\.dev/configurationGeneration']
+      name: Generation
+      type: string
+    - JSONPath: .status.conditions[?(@.type=='Ready')].status
+      name: Ready
+      type: string
+    - JSONPath: .status.conditions[?(@.type=='Ready')].reason
+      name: Reason
+      type: string
+    conversion:
+      strategy: None
+    group: serving.knative.dev
+    names:
+      categories:
+      - all
+      - knative
+      - serving
+      kind: Revision
+      listKind: RevisionList
+      plural: revisions
+      shortNames:
+      - rev
+      singular: revision
+    scope: Namespaced
+    subresources:
+      status: {}
+    version: v1alpha1
+    versions:
+    - name: v1alpha1
+      served: true
+      storage: true
+  status:
+    acceptedNames:
+      categories:
+      - all
+      - knative
+      - serving
+      kind: Revision
+      listKind: RevisionList
+      plural: revisions
+      shortNames:
+      - rev
+      singular: revision
+    conditions:
+    - lastTransitionTime: "2019-10-28T23:42:30Z"
+      message: no conflicts found
+      reason: NoConflicts
+      status: "True"
+      type: NamesAccepted
+    - lastTransitionTime: null
+      message: the initial names have been accepted
+      reason: InitialNamesAccepted
+      status: "True"
+      type: Established
+    storedVersions:
+    - v1alpha1
+- apiVersion: apiextensions.k8s.io/v1beta1
+  kind: CustomResourceDefinition
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apiextensions.k8s.io/v1beta1","kind":"CustomResourceDefinition","metadata":{"annotations":{},"labels":{"knative.dev/crd-install":"true","serving.knative.dev/release":"v0.9.0"},"name":"routes.serving.knative.dev"},"spec":{"additionalPrinterColumns":[{"JSONPath":".status.url","name":"URL","type":"string"},{"JSONPath":".status.conditions[?(@.type=='Ready')].status","name":"Ready","type":"string"},{"JSONPath":".status.conditions[?(@.type=='Ready')].reason","name":"Reason","type":"string"}],"group":"serving.knative.dev","names":{"categories":["all","knative","serving"],"kind":"Route","plural":"routes","shortNames":["rt"],"singular":"route"},"scope":"Namespaced","subresources":{"status":{}},"versions":[{"name":"v1alpha1","served":true,"storage":true}]}}
+    creationTimestamp: "2019-10-28T23:30:29Z"
+    deletionTimestamp: "2019-10-28T23:39:26Z"
+    finalizers:
+    - customresourcecleanup.apiextensions.k8s.io
+    generation: 1
+    labels:
+      knative.dev/crd-install: "true"
+      serving.knative.dev/release: v0.9.0
+    name: routes.serving.knative.dev
+    resourceVersion: "7448"
+    selfLink: /apis/apiextensions.k8s.io/v1beta1/customresourcedefinitions/routes.serving.knative.dev
+    uid: edc12245-f9da-11e9-861d-0631a3c8862c
+  spec:
+    additionalPrinterColumns:
+    - JSONPath: .status.url
+      name: URL
+      type: string
+    - JSONPath: .status.conditions[?(@.type=='Ready')].status
+      name: Ready
+      type: string
+    - JSONPath: .status.conditions[?(@.type=='Ready')].reason
+      name: Reason
+      type: string
+    conversion:
+      strategy: None
+    group: serving.knative.dev
+    names:
+      categories:
+      - all
+      - knative
+      - serving
+      kind: Route
+      listKind: RouteList
+      plural: routes
+      shortNames:
+      - rt
+      singular: route
+    scope: Namespaced
+    subresources:
+      status: {}
+    version: v1alpha1
+    versions:
+    - name: v1alpha1
+      served: true
+      storage: true
+  status:
+    acceptedNames:
+      categories:
+      - all
+      - knative
+      - serving
+      kind: Route
+      listKind: RouteList
+      plural: routes
+      shortNames:
+      - rt
+      singular: route
+    conditions:
+    - lastTransitionTime: "2019-10-28T23:30:29Z"
+      message: no conflicts found
+      reason: NoConflicts
+      status: "True"
+      type: NamesAccepted
+    - lastTransitionTime: null
+      message: the initial names have been accepted
+      reason: InitialNamesAccepted
+      status: "True"
+      type: Established
+    - lastTransitionTime: "2019-10-28T23:39:26Z"
+      message: CustomResource deletion is in progress
+      reason: InstanceDeletionInProgress
+      status: "True"
+      type: Terminating
+    storedVersions:
+    - v1alpha1
+- apiVersion: apiextensions.k8s.io/v1beta1
+  kind: CustomResourceDefinition
+  metadata:
+    annotations:
+      helm.sh/hook: crd-install
+    creationTimestamp: "2019-10-28T23:19:52Z"
+    generation: 1
+    name: routetables.gateway.solo.io
+    resourceVersion: "1352"
+    selfLink: /apis/apiextensions.k8s.io/v1beta1/customresourcedefinitions/routetables.gateway.solo.io
+    uid: 71fd733c-f9d9-11e9-968e-0a094f6cd970
+  spec:
+    conversion:
+      strategy: None
+    group: gateway.solo.io
+    names:
+      kind: RouteTable
+      listKind: RouteTableList
+      plural: routetables
+      shortNames:
+      - rt
+      singular: routetable
+    scope: Namespaced
+    version: v1
+    versions:
+    - name: v1
+      served: true
+      storage: true
+  status:
+    acceptedNames:
+      kind: RouteTable
+      listKind: RouteTableList
+      plural: routetables
+      shortNames:
+      - rt
+      singular: routetable
+    conditions:
+    - lastTransitionTime: "2019-10-28T23:19:52Z"
+      message: no conflicts found
+      reason: NoConflicts
+      status: "True"
+      type: NamesAccepted
+    - lastTransitionTime: null
+      message: the initial names have been accepted
+      reason: InitialNamesAccepted
+      status: "True"
+      type: Established
+    storedVersions:
+    - v1
+- apiVersion: apiextensions.k8s.io/v1beta1
+  kind: CustomResourceDefinition
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apiextensions.k8s.io/v1beta1","kind":"CustomResourceDefinition","metadata":{"annotations":{},"labels":{"eventing.knative.dev/release":"v0.9.0","knative.dev/crd-install":"true"},"name":"sequences.messaging.knative.dev"},"spec":{"additionalPrinterColumns":[{"JSONPath":".status.conditions[?(@.type==\"Ready\")].status","name":"Ready","type":"string"},{"JSONPath":".status.conditions[?(@.type==\"Ready\")].reason","name":"Reason","type":"string"},{"JSONPath":".status.address.hostname","name":"Hostname","type":"string"},{"JSONPath":".metadata.creationTimestamp","name":"Age","type":"date"}],"group":"messaging.knative.dev","names":{"categories":["all","knative","eventing","messaging"],"kind":"Sequence","plural":"sequences","singular":"sequence"},"scope":"Namespaced","subresources":{"status":{}},"validation":{"openAPIV3Schema":{"properties":{"spec":{"properties":{"channelTemplate":{"properties":{"apiVersion":{"minLength":1,"type":"string"},"kind":{"minLength":1,"type":"string"},"spec":{"type":"object"}},"required":["apiVersion","kind"],"type":"object"},"steps":{"items":{"properties":{"dnsName":{"minLength":1,"type":"string"},"ref":{"properties":{"apiVersion":{"minLength":1,"type":"string"},"kind":{"minLength":1,"type":"string"},"name":{"minLength":1,"type":"string"},"namespace":{"maxLength":0,"type":"string"}},"required":["apiVersion","kind","name"],"type":"object"},"uri":{"minLength":1,"type":"string"}},"type":"object"},"type":"array"}},"required":["steps","channelTemplate"]}}}},"versions":[{"name":"v1alpha1","served":true,"storage":true}]}}
+    creationTimestamp: "2019-10-28T23:42:31Z"
+    generation: 1
+    labels:
+      eventing.knative.dev/release: v0.9.0
+      knative.dev/crd-install: "true"
+    name: sequences.messaging.knative.dev
+    resourceVersion: "7298"
+    selfLink: /apis/apiextensions.k8s.io/v1beta1/customresourcedefinitions/sequences.messaging.knative.dev
+    uid: 9c0c4673-f9dc-11e9-968e-0a094f6cd970
+  spec:
+    additionalPrinterColumns:
+    - JSONPath: .status.conditions[?(@.type=="Ready")].status
+      name: Ready
+      type: string
+    - JSONPath: .status.conditions[?(@.type=="Ready")].reason
+      name: Reason
+      type: string
+    - JSONPath: .status.address.hostname
+      name: Hostname
+      type: string
+    - JSONPath: .metadata.creationTimestamp
+      name: Age
+      type: date
+    conversion:
+      strategy: None
+    group: messaging.knative.dev
+    names:
+      categories:
+      - all
+      - knative
+      - eventing
+      - messaging
+      kind: Sequence
+      listKind: SequenceList
+      plural: sequences
+      singular: sequence
+    scope: Namespaced
+    subresources:
+      status: {}
+    validation:
+      openAPIV3Schema:
+        properties:
+          spec:
+            properties:
+              channelTemplate:
+                properties:
+                  apiVersion:
+                    minLength: 1
+                    type: string
+                  kind:
+                    minLength: 1
+                    type: string
+                  spec:
+                    type: object
+                required:
+                - apiVersion
+                - kind
+                type: object
+              steps:
+                items:
+                  properties:
+                    dnsName:
+                      minLength: 1
+                      type: string
+                    ref:
+                      properties:
+                        apiVersion:
+                          minLength: 1
+                          type: string
+                        kind:
+                          minLength: 1
+                          type: string
+                        name:
+                          minLength: 1
+                          type: string
+                        namespace:
+                          maxLength: 0
+                          type: string
+                      required:
+                      - apiVersion
+                      - kind
+                      - name
+                      type: object
+                    uri:
+                      minLength: 1
+                      type: string
+                  type: object
+                type: array
+            required:
+            - steps
+            - channelTemplate
+    version: v1alpha1
+    versions:
+    - name: v1alpha1
+      served: true
+      storage: true
+  status:
+    acceptedNames:
+      categories:
+      - all
+      - knative
+      - eventing
+      - messaging
+      kind: Sequence
+      listKind: SequenceList
+      plural: sequences
+      singular: sequence
+    conditions:
+    - lastTransitionTime: "2019-10-28T23:42:31Z"
+      message: no conflicts found
+      reason: NoConflicts
+      status: "True"
+      type: NamesAccepted
+    - lastTransitionTime: null
+      message: the initial names have been accepted
+      reason: InitialNamesAccepted
+      status: "True"
+      type: Established
+    storedVersions:
+    - v1alpha1
+- apiVersion: apiextensions.k8s.io/v1beta1
+  kind: CustomResourceDefinition
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apiextensions.k8s.io/v1beta1","kind":"CustomResourceDefinition","metadata":{"annotations":{},"labels":{"knative.dev/crd-install":"true","serving.knative.dev/release":"v0.9.0"},"name":"serverlessservices.networking.internal.knative.dev"},"spec":{"additionalPrinterColumns":[{"JSONPath":".spec.mode","name":"Mode","type":"string"},{"JSONPath":".status.serviceName","name":"ServiceName","type":"string"},{"JSONPath":".status.privateServiceName","name":"PrivateServiceName","type":"string"},{"JSONPath":".status.conditions[?(@.type=='Ready')].status","name":"Ready","type":"string"},{"JSONPath":".status.conditions[?(@.type=='Ready')].reason","name":"Reason","type":"string"}],"group":"networking.internal.knative.dev","names":{"categories":["knative-internal","networking"],"kind":"ServerlessService","plural":"serverlessservices","shortNames":["sks"],"singular":"serverlessservice"},"scope":"Namespaced","subresources":{"status":{}},"versions":[{"name":"v1alpha1","served":true,"storage":true}]}}
+    creationTimestamp: "2019-10-28T23:42:30Z"
+    generation: 1
+    labels:
+      knative.dev/crd-install: "true"
+      serving.knative.dev/release: v0.9.0
+    name: serverlessservices.networking.internal.knative.dev
+    resourceVersion: "7254"
+    selfLink: /apis/apiextensions.k8s.io/v1beta1/customresourcedefinitions/serverlessservices.networking.internal.knative.dev
+    uid: 9b13bf55-f9dc-11e9-968e-0a094f6cd970
+  spec:
+    additionalPrinterColumns:
+    - JSONPath: .spec.mode
+      name: Mode
+      type: string
+    - JSONPath: .status.serviceName
+      name: ServiceName
+      type: string
+    - JSONPath: .status.privateServiceName
+      name: PrivateServiceName
+      type: string
+    - JSONPath: .status.conditions[?(@.type=='Ready')].status
+      name: Ready
+      type: string
+    - JSONPath: .status.conditions[?(@.type=='Ready')].reason
+      name: Reason
+      type: string
+    conversion:
+      strategy: None
+    group: networking.internal.knative.dev
+    names:
+      categories:
+      - knative-internal
+      - networking
+      kind: ServerlessService
+      listKind: ServerlessServiceList
+      plural: serverlessservices
+      shortNames:
+      - sks
+      singular: serverlessservice
+    scope: Namespaced
+    subresources:
+      status: {}
+    version: v1alpha1
+    versions:
+    - name: v1alpha1
+      served: true
+      storage: true
+  status:
+    acceptedNames:
+      categories:
+      - knative-internal
+      - networking
+      kind: ServerlessService
+      listKind: ServerlessServiceList
+      plural: serverlessservices
+      shortNames:
+      - sks
+      singular: serverlessservice
+    conditions:
+    - lastTransitionTime: "2019-10-28T23:42:30Z"
+      message: no conflicts found
+      reason: NoConflicts
+      status: "True"
+      type: NamesAccepted
+    - lastTransitionTime: null
+      message: the initial names have been accepted
+      reason: InitialNamesAccepted
+      status: "True"
+      type: Established
+    storedVersions:
+    - v1alpha1
+- apiVersion: apiextensions.k8s.io/v1beta1
+  kind: CustomResourceDefinition
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apiextensions.k8s.io/v1beta1","kind":"CustomResourceDefinition","metadata":{"annotations":{},"labels":{"knative.dev/crd-install":"true","serving.knative.dev/release":"v0.9.0"},"name":"services.serving.knative.dev"},"spec":{"additionalPrinterColumns":[{"JSONPath":".status.url","name":"URL","type":"string"},{"JSONPath":".status.latestCreatedRevisionName","name":"LatestCreated","type":"string"},{"JSONPath":".status.latestReadyRevisionName","name":"LatestReady","type":"string"},{"JSONPath":".status.conditions[?(@.type=='Ready')].status","name":"Ready","type":"string"},{"JSONPath":".status.conditions[?(@.type=='Ready')].reason","name":"Reason","type":"string"}],"group":"serving.knative.dev","names":{"categories":["all","knative","serving"],"kind":"Service","plural":"services","shortNames":["kservice","ksvc"],"singular":"service"},"scope":"Namespaced","subresources":{"status":{}},"versions":[{"name":"v1alpha1","served":true,"storage":true}]}}
+    creationTimestamp: "2019-10-28T23:42:30Z"
+    generation: 1
+    labels:
+      knative.dev/crd-install: "true"
+      serving.knative.dev/release: v0.9.0
+    name: services.serving.knative.dev
+    resourceVersion: "7264"
+    selfLink: /apis/apiextensions.k8s.io/v1beta1/customresourcedefinitions/services.serving.knative.dev
+    uid: 9b31f775-f9dc-11e9-968e-0a094f6cd970
+  spec:
+    additionalPrinterColumns:
+    - JSONPath: .status.url
+      name: URL
+      type: string
+    - JSONPath: .status.latestCreatedRevisionName
+      name: LatestCreated
+      type: string
+    - JSONPath: .status.latestReadyRevisionName
+      name: LatestReady
+      type: string
+    - JSONPath: .status.conditions[?(@.type=='Ready')].status
+      name: Ready
+      type: string
+    - JSONPath: .status.conditions[?(@.type=='Ready')].reason
+      name: Reason
+      type: string
+    conversion:
+      strategy: None
+    group: serving.knative.dev
+    names:
+      categories:
+      - all
+      - knative
+      - serving
+      kind: Service
+      listKind: ServiceList
+      plural: services
+      shortNames:
+      - kservice
+      - ksvc
+      singular: service
+    scope: Namespaced
+    subresources:
+      status: {}
+    version: v1alpha1
+    versions:
+    - name: v1alpha1
+      served: true
+      storage: true
+  status:
+    acceptedNames:
+      categories:
+      - all
+      - knative
+      - serving
+      kind: Service
+      listKind: ServiceList
+      plural: services
+      shortNames:
+      - kservice
+      - ksvc
+      singular: service
+    conditions:
+    - lastTransitionTime: "2019-10-28T23:42:30Z"
+      message: no conflicts found
+      reason: NoConflicts
+      status: "True"
+      type: NamesAccepted
+    - lastTransitionTime: null
+      message: the initial names have been accepted
+      reason: InitialNamesAccepted
+      status: "True"
+      type: Established
+    storedVersions:
+    - v1alpha1
+- apiVersion: apiextensions.k8s.io/v1beta1
+  kind: CustomResourceDefinition
+  metadata:
+    annotations:
+      helm.sh/hook: crd-install
+    creationTimestamp: "2019-10-28T23:19:52Z"
+    generation: 1
+    labels:
+      gloo: settings
+    name: settings.gloo.solo.io
+    resourceVersion: "1355"
+    selfLink: /apis/apiextensions.k8s.io/v1beta1/customresourcedefinitions/settings.gloo.solo.io
+    uid: 72014a47-f9d9-11e9-968e-0a094f6cd970
+  spec:
+    conversion:
+      strategy: None
+    group: gloo.solo.io
+    names:
+      kind: Settings
+      listKind: SettingsList
+      plural: settings
+      shortNames:
+      - st
+      singular: settings
+    scope: Namespaced
+    version: v1
+    versions:
+    - name: v1
+      served: true
+      storage: true
+  status:
+    acceptedNames:
+      kind: Settings
+      listKind: SettingsList
+      plural: settings
+      shortNames:
+      - st
+      singular: settings
+    conditions:
+    - lastTransitionTime: "2019-10-28T23:19:52Z"
+      message: no conflicts found
+      reason: NoConflicts
+      status: "True"
+      type: NamesAccepted
+    - lastTransitionTime: null
+      message: the initial names have been accepted
+      reason: InitialNamesAccepted
+      status: "True"
+      type: Established
+    storedVersions:
+    - v1
+- apiVersion: apiextensions.k8s.io/v1beta1
+  kind: CustomResourceDefinition
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apiextensions.k8s.io/v1beta1","kind":"CustomResourceDefinition","metadata":{"annotations":{},"labels":{"eventing.knative.dev/release":"v0.9.0","knative.dev/crd-install":"true"},"name":"subscriptions.messaging.knative.dev"},"spec":{"additionalPrinterColumns":[{"JSONPath":".status.conditions[?(@.type==\"Ready\")].status","name":"Ready","type":"string"},{"JSONPath":".status.conditions[?(@.type==\"Ready\")].reason","name":"Reason","type":"string"},{"JSONPath":".metadata.creationTimestamp","name":"Age","type":"date"}],"group":"messaging.knative.dev","names":{"categories":["all","knative","eventing"],"kind":"Subscription","plural":"subscriptions","shortNames":["sub"],"singular":"subscription"},"scope":"Namespaced","subresources":{"status":{}},"validation":{"openAPIV3Schema":{"properties":{"spec":{"properties":{"channel":{"properties":{"apiVersion":{"minLength":1,"type":"string"},"kind":{"type":"string"},"name":{"minLength":1,"type":"string"}},"required":["apiVersion","kind","name"],"type":"object"},"reply":{"properties":{"channel":{"properties":{"apiVersion":{"minLength":1,"type":"string"},"kind":{"type":"string"},"name":{"minLength":1,"type":"string"}},"required":["apiVersion","kind","name"],"type":"object"}},"type":"object"},"subscriber":{"properties":{"dnsName":{"minLength":1,"type":"string"},"ref":{"properties":{"apiVersion":{"minLength":1,"type":"string"},"kind":{"minLength":1,"type":"string"},"name":{"minLength":1,"type":"string"}},"required":["apiVersion","kind","name"],"type":"object"},"uri":{"minLength":1,"type":"string"}},"type":"object"}},"required":["channel"]}}}},"versions":[{"name":"v1alpha1","served":true,"storage":true}]}}
+    creationTimestamp: "2019-10-28T23:42:31Z"
+    generation: 1
+    labels:
+      eventing.knative.dev/release: v0.9.0
+      knative.dev/crd-install: "true"
+    name: subscriptions.messaging.knative.dev
+    resourceVersion: "7301"
+    selfLink: /apis/apiextensions.k8s.io/v1beta1/customresourcedefinitions/subscriptions.messaging.knative.dev
+    uid: 9c12ab52-f9dc-11e9-968e-0a094f6cd970
+  spec:
+    additionalPrinterColumns:
+    - JSONPath: .status.conditions[?(@.type=="Ready")].status
+      name: Ready
+      type: string
+    - JSONPath: .status.conditions[?(@.type=="Ready")].reason
+      name: Reason
+      type: string
+    - JSONPath: .metadata.creationTimestamp
+      name: Age
+      type: date
+    conversion:
+      strategy: None
+    group: messaging.knative.dev
+    names:
+      categories:
+      - all
+      - knative
+      - eventing
+      kind: Subscription
+      listKind: SubscriptionList
+      plural: subscriptions
+      shortNames:
+      - sub
+      singular: subscription
+    scope: Namespaced
+    subresources:
+      status: {}
+    validation:
+      openAPIV3Schema:
+        properties:
+          spec:
+            properties:
+              channel:
+                properties:
+                  apiVersion:
+                    minLength: 1
+                    type: string
+                  kind:
+                    type: string
+                  name:
+                    minLength: 1
+                    type: string
+                required:
+                - apiVersion
+                - kind
+                - name
+                type: object
+              reply:
+                properties:
+                  channel:
+                    properties:
+                      apiVersion:
+                        minLength: 1
+                        type: string
+                      kind:
+                        type: string
+                      name:
+                        minLength: 1
+                        type: string
+                    required:
+                    - apiVersion
+                    - kind
+                    - name
+                    type: object
+                type: object
+              subscriber:
+                properties:
+                  dnsName:
+                    minLength: 1
+                    type: string
+                  ref:
+                    properties:
+                      apiVersion:
+                        minLength: 1
+                        type: string
+                      kind:
+                        minLength: 1
+                        type: string
+                      name:
+                        minLength: 1
+                        type: string
+                    required:
+                    - apiVersion
+                    - kind
+                    - name
+                    type: object
+                  uri:
+                    minLength: 1
+                    type: string
+                type: object
+            required:
+            - channel
+    version: v1alpha1
+    versions:
+    - name: v1alpha1
+      served: true
+      storage: true
+  status:
+    acceptedNames:
+      categories:
+      - all
+      - knative
+      - eventing
+      kind: Subscription
+      listKind: SubscriptionList
+      plural: subscriptions
+      shortNames:
+      - sub
+      singular: subscription
+    conditions:
+    - lastTransitionTime: "2019-10-28T23:42:31Z"
+      message: no conflicts found
+      reason: NoConflicts
+      status: "True"
+      type: NamesAccepted
+    - lastTransitionTime: null
+      message: the initial names have been accepted
+      reason: InitialNamesAccepted
+      status: "True"
+      type: Established
+    storedVersions:
+    - v1alpha1
+- apiVersion: apiextensions.k8s.io/v1beta1
+  kind: CustomResourceDefinition
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apiextensions.k8s.io/v1beta1","kind":"CustomResourceDefinition","metadata":{"annotations":{},"labels":{"eventing.knative.dev/release":"v0.9.0","knative.dev/crd-install":"true"},"name":"triggers.eventing.knative.dev"},"spec":{"additionalPrinterColumns":[{"JSONPath":".status.conditions[?(@.type==\"Ready\")].status","name":"Ready","type":"string"},{"JSONPath":".status.conditions[?(@.type==\"Ready\")].reason","name":"Reason","type":"string"},{"JSONPath":".spec.broker","name":"Broker","type":"string"},{"JSONPath":".status.subscriberURI","name":"Subscriber_URI","type":"string"},{"JSONPath":".metadata.creationTimestamp","name":"Age","type":"date"}],"group":"eventing.knative.dev","names":{"categories":["all","knative","eventing"],"kind":"Trigger","plural":"triggers","singular":"trigger"},"scope":"Namespaced","subresources":{"status":{}},"validation":{"openAPIV3Schema":{"properties":{"spec":{"properties":{"broker":{"type":"string"},"filter":{"properties":{"attributes":{"additionalProperties":{"type":"string"},"description":"Map of CloudEvents attributes used for filtering events.","type":"object"},"sourceAndType":{"properties":{"source":{"type":"string"},"type":{"type":"string"}},"type":"object"}},"type":"object"},"subscriber":{"properties":{"dnsName":{"minLength":1,"type":"string"},"ref":{"properties":{"apiVersion":{"minLength":1,"type":"string"},"kind":{"minLength":1,"type":"string"},"name":{"minLength":1,"type":"string"}},"required":["apiVersion","kind","name"],"type":"object"},"uri":{"minLength":1,"type":"string"}},"type":"object"}},"required":["subscriber"]}}}},"versions":[{"name":"v1alpha1","served":true,"storage":true}]}}
+    creationTimestamp: "2019-10-28T23:42:31Z"
+    generation: 1
+    labels:
+      eventing.knative.dev/release: v0.9.0
+      knative.dev/crd-install: "true"
+    name: triggers.eventing.knative.dev
+    resourceVersion: "7304"
+    selfLink: /apis/apiextensions.k8s.io/v1beta1/customresourcedefinitions/triggers.eventing.knative.dev
+    uid: 9c1a5ed5-f9dc-11e9-968e-0a094f6cd970
+  spec:
+    additionalPrinterColumns:
+    - JSONPath: .status.conditions[?(@.type=="Ready")].status
+      name: Ready
+      type: string
+    - JSONPath: .status.conditions[?(@.type=="Ready")].reason
+      name: Reason
+      type: string
+    - JSONPath: .spec.broker
+      name: Broker
+      type: string
+    - JSONPath: .status.subscriberURI
+      name: Subscriber_URI
+      type: string
+    - JSONPath: .metadata.creationTimestamp
+      name: Age
+      type: date
+    conversion:
+      strategy: None
+    group: eventing.knative.dev
+    names:
+      categories:
+      - all
+      - knative
+      - eventing
+      kind: Trigger
+      listKind: TriggerList
+      plural: triggers
+      singular: trigger
+    scope: Namespaced
+    subresources:
+      status: {}
+    validation:
+      openAPIV3Schema:
+        properties:
+          spec:
+            properties:
+              broker:
+                type: string
+              filter:
+                properties:
+                  attributes:
+                    additionalProperties:
+                      type: string
+                    description: Map of CloudEvents attributes used for filtering
+                      events.
+                    type: object
+                  sourceAndType:
+                    properties:
+                      source:
+                        type: string
+                      type:
+                        type: string
+                    type: object
+                type: object
+              subscriber:
+                properties:
+                  dnsName:
+                    minLength: 1
+                    type: string
+                  ref:
+                    properties:
+                      apiVersion:
+                        minLength: 1
+                        type: string
+                      kind:
+                        minLength: 1
+                        type: string
+                      name:
+                        minLength: 1
+                        type: string
+                    required:
+                    - apiVersion
+                    - kind
+                    - name
+                    type: object
+                  uri:
+                    minLength: 1
+                    type: string
+                type: object
+            required:
+            - subscriber
+    version: v1alpha1
+    versions:
+    - name: v1alpha1
+      served: true
+      storage: true
+  status:
+    acceptedNames:
+      categories:
+      - all
+      - knative
+      - eventing
+      kind: Trigger
+      listKind: TriggerList
+      plural: triggers
+      singular: trigger
+    conditions:
+    - lastTransitionTime: "2019-10-28T23:42:31Z"
+      message: no conflicts found
+      reason: NoConflicts
+      status: "True"
+      type: NamesAccepted
+    - lastTransitionTime: null
+      message: the initial names have been accepted
+      reason: InitialNamesAccepted
+      status: "True"
+      type: Established
+    storedVersions:
+    - v1alpha1
+- apiVersion: apiextensions.k8s.io/v1beta1
+  kind: CustomResourceDefinition
+  metadata:
+    annotations:
+      helm.sh/hook: crd-install
+    creationTimestamp: "2019-10-28T23:19:52Z"
+    generation: 1
+    name: upstreamgroups.gloo.solo.io
+    resourceVersion: "1358"
+    selfLink: /apis/apiextensions.k8s.io/v1beta1/customresourcedefinitions/upstreamgroups.gloo.solo.io
+    uid: 7207230c-f9d9-11e9-968e-0a094f6cd970
+  spec:
+    conversion:
+      strategy: None
+    group: gloo.solo.io
+    names:
+      kind: UpstreamGroup
+      listKind: UpstreamGroupList
+      plural: upstreamgroups
+      shortNames:
+      - ug
+      singular: upstreamgroup
+    scope: Namespaced
+    version: v1
+    versions:
+    - name: v1
+      served: true
+      storage: true
+  status:
+    acceptedNames:
+      kind: UpstreamGroup
+      listKind: UpstreamGroupList
+      plural: upstreamgroups
+      shortNames:
+      - ug
+      singular: upstreamgroup
+    conditions:
+    - lastTransitionTime: "2019-10-28T23:19:52Z"
+      message: no conflicts found
+      reason: NoConflicts
+      status: "True"
+      type: NamesAccepted
+    - lastTransitionTime: null
+      message: the initial names have been accepted
+      reason: InitialNamesAccepted
+      status: "True"
+      type: Established
+    storedVersions:
+    - v1
+- apiVersion: apiextensions.k8s.io/v1beta1
+  kind: CustomResourceDefinition
+  metadata:
+    annotations:
+      helm.sh/hook: crd-install
+    creationTimestamp: "2019-10-28T23:19:53Z"
+    generation: 1
+    name: upstreams.gloo.solo.io
+    resourceVersion: "1364"
+    selfLink: /apis/apiextensions.k8s.io/v1beta1/customresourcedefinitions/upstreams.gloo.solo.io
+    uid: 72a4881f-f9d9-11e9-968e-0a094f6cd970
+  spec:
+    conversion:
+      strategy: None
+    group: gloo.solo.io
+    names:
+      kind: Upstream
+      listKind: UpstreamList
+      plural: upstreams
+      shortNames:
+      - us
+      singular: upstream
+    scope: Namespaced
+    version: v1
+    versions:
+    - name: v1
+      served: true
+      storage: true
+  status:
+    acceptedNames:
+      kind: Upstream
+      listKind: UpstreamList
+      plural: upstreams
+      shortNames:
+      - us
+      singular: upstream
+    conditions:
+    - lastTransitionTime: "2019-10-28T23:19:53Z"
+      message: no conflicts found
+      reason: NoConflicts
+      status: "True"
+      type: NamesAccepted
+    - lastTransitionTime: null
+      message: the initial names have been accepted
+      reason: InitialNamesAccepted
+      status: "True"
+      type: Established
+    storedVersions:
+    - v1
+- apiVersion: apiextensions.k8s.io/v1beta1
+  kind: CustomResourceDefinition
+  metadata:
+    annotations:
+      helm.sh/hook: crd-install
+    creationTimestamp: "2019-10-28T23:19:53Z"
+    generation: 1
+    name: virtualservices.gateway.solo.io
+    resourceVersion: "1367"
+    selfLink: /apis/apiextensions.k8s.io/v1beta1/customresourcedefinitions/virtualservices.gateway.solo.io
+    uid: 72a88535-f9d9-11e9-968e-0a094f6cd970
+  spec:
+    conversion:
+      strategy: None
+    group: gateway.solo.io
+    names:
+      kind: VirtualService
+      listKind: VirtualServiceList
+      plural: virtualservices
+      shortNames:
+      - vs
+      singular: virtualservice
+    scope: Namespaced
+    version: v1
+    versions:
+    - name: v1
+      served: true
+      storage: true
+  status:
+    acceptedNames:
+      kind: VirtualService
+      listKind: VirtualServiceList
+      plural: virtualservices
+      shortNames:
+      - vs
+      singular: virtualservice
+    conditions:
+    - lastTransitionTime: "2019-10-28T23:19:53Z"
+      message: no conflicts found
+      reason: NoConflicts
+      status: "True"
+      type: NamesAccepted
+    - lastTransitionTime: null
+      message: the initial names have been accepted
+      reason: InitialNamesAccepted
+      status: "True"
+      type: Established
+    storedVersions:
+    - v1
+kind: List
+metadata:
+  resourceVersion: ""
+  selfLink: ""

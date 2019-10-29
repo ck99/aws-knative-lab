@@ -80,19 +80,19 @@ module "vpc" {
   }
 }
 
-data "template_file" "cluster_autoscaler_values" {
-  template = file("${path.module}/templates/cluster_autoscaler_values.tpl")
-
-  vars = {
-    region = var.region
-    cluster_name = local.cluster_name
-  }
-}
-
-resource "local_file" "cluster_autoscaler_values" {
-  content  = data.template_file.cluster_autoscaler_values.rendered
-  filename = "./k8s/cluster-autoscaler-values.yaml"
-}
+//data "template_file" "cluster_autoscaler_values" {
+//  template = file("${path.module}/templates/cluster_autoscaler_values.tpl")
+//
+//  vars = {
+//    region = var.region
+//    cluster_name = local.cluster_name
+//  }
+//}
+//
+//resource "local_file" "cluster_autoscaler_values" {
+//  content  = data.template_file.cluster_autoscaler_values.rendered
+//  filename = "./k8s/cluster-autoscaler-values.yaml"
+//}
 
 data "template_file" "post_deploy_instructions" {
   template = file("${path.module}/templates/postdeploy.tpl")

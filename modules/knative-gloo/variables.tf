@@ -1,0 +1,1 @@
+variable "k8s_config_file" {}
